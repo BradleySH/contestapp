@@ -5,15 +5,14 @@ const morgan = require("morgan");
 const mongoose = require("mongoose");
 const jwt = require("express-jwt");
 process.env.SECRET
+process.env.DB_URI
 
 
 app.use(express.json());
 app.use(morgan("dev"));
 
-const uri = 'mongodb+srv://dbUser:Vschool2021@cluster0.vnuzs.mongodb.net/test'
-
 mongoose.connect(
-  uri,
+  process.env.DB_URI,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
