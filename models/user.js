@@ -21,7 +21,7 @@ const userSchema = new Schema({
     type: Number,
   },
   currency: {
-    type: Numnber
+    type: Number
   },
   avatar: {
     type: String
