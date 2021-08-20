@@ -17,6 +17,11 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
+  role: {
+    type: String,
+    required: true,
+    default: 'employee'
+  },
   points: {
     type: Number,
     default: 0
@@ -31,11 +36,11 @@ const userSchema = new Schema({
   client: {
     type: Schema.Types.ObjectId,
     ref: "Client",
-    
-    team: {
-      type: Schema.Types.ObjectId,
-      ref:"Team"
-    }
+    required: true
+  },
+  team: {
+    type: Schema.Types.ObjectId,
+    ref:"Team"
   }
 });
 
