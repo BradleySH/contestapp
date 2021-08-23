@@ -1,0 +1,340 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.auth-container {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: white;
+  color: #1c3557;
+
+  h1 {
+    margin-bottom: 30px;
+    font-size: 48px;
+  }
+
+  .auth-form {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: rgb(226, 226, 226);
+    border: none;
+    height: 400px;
+    width: 300px;
+    border-radius: 30px;
+    align-items: center;
+    margin: 10px;
+
+    input {
+      width: 250px;
+      border: none;
+      height: 40px;
+      border-radius: 30px;
+      padding-left: 10px;
+      margin: 10px;
+    }
+
+    button {
+      height: 40px;
+      width: 250px;
+      border-radius: 30px;
+      border: none;
+      background-color: #1c3557;
+      color: whitesmoke;
+      font-weight: 400;
+      font-size: medium;
+      margin: 15px;
+      align-items: center;
+    }
+    label {
+      color: #1c3557;
+      padding-left: 10px;
+    }
+  }
+  .adminBtn {
+    padding-top: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    .icon {
+      margin-right: 5px;
+    }
+    .link {
+      color: #1c3557;
+      text-decoration: none;
+      list-style: none;
+    }
+  }
+}
+
+.admin-container {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: white;
+  color: #1c3557;
+
+  h1 {
+    margin-bottom: 30px;
+    font-size: 48px;
+  }
+  .admin-form {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: rgb(226, 226, 226);
+    border: none;
+    height: 400px;
+    width: 300px;
+    border-radius: 30px;
+    align-items: center;
+    margin: 10px;
+
+    input {
+      width: 250px;
+      border: none;
+      height: 40px;
+      border-radius: 30px;
+      padding-left: 10px;
+      margin: 10px;
+    }
+
+    button {
+      height: 40px;
+      width: 250px;
+      border-radius: 30px;
+      border: none;
+      background-color: #1c3557;
+      color: whitesmoke;
+      font-weight: 400;
+      font-size: medium;
+      margin: 15px;
+      align-items: center;
+    }
+    label {
+      color: #1c3557;
+      padding-left: 10px;
+    }
+  }
+}
+
+.header-container {
+  height: 160px;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .logo {
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+  }
+}
+
+.team-name {
+  height: 160px;
+  font-size: 64px;
+  display: flex;
+  padding-left: 10px;
+  .circle {
+    height: 130px;
+    width: 130px;
+    border-radius: 50%;
+    background-color: #1c3557;
+  }
+  p {
+    font-size: 64px;
+  }
+
+  span {
+    font-size: 24px;
+  }
+}
+
+.stats {
+  .user-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+
+    .user {
+      padding-left: 10px;
+      grid-column: 1/2;
+      grid-row: 1/4;
+      display: flex;
+
+      img {
+        height: 24px;
+        width: 24px;
+        border-radius: 50%;
+        background-color: #1c3557;
+      }
+    }
+    .cash {
+      grid-column: 2/3;
+      grid-row: 1/2;
+      display: flex;
+      background-color: gray;
+    }
+  }
+  .team-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 10px;
+  }
+}
+
+.team-members {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+
+  .coach {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    grid-column: 1/2;
+    grid-row: 1/2;
+    padding: 15px;
+  }
+  .member1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    grid-column: 2/3;
+    grid-row: 1/2;
+    padding: 15px;
+  }
+  .member2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    grid-column: 3/4;
+    grid-row: 1/2;
+    padding: 15px;
+  }
+  .member3 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    grid-column: 4/5;
+    grid-row: 1/2;
+    padding: 15px;
+  }
+  .member4 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    grid-column: 2/3;
+    grid-row: 2/3;
+    padding: 15px;
+  }
+  .member5 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    grid-column: 3/4;
+    grid-row: 2/3;
+    padding: 15px;
+  }
+}
+.navbar {
+  height: 102px;
+  width: 100vw;
+  position: -webkit-sticky;
+  display: flex;
+  flex-direction: row;
+  background-color: #1c3557;
+  justify-content: space-evenly;
+  align-items: center;
+  color: white;
+  text-decoration: none;
+  list-style: none;
+
+  a {
+    text-decoration: none;
+    list-style: none;
+    color: white;
+    cursor: pointer;
+  }
+}
+
+.team-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  .graph {
+    background-color: #1c3557;
+    height: 300px;
+    width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    h1 {
+      color: white;
+    }
+  }
+  .team-ranking {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    padding-top: 50px;
+    padding: 25px;
+
+    .team1 {
+      height: 40px;
+      width: 40px;
+      background-color: gray;
+      border-radius: 50%;
+      grid-column: 1/2;
+      grid-row: 1/2;
+    }
+    .team2 {
+      height: 40px;
+      width: 40px;
+      background-color: gray;
+      border-radius: 50%;
+      grid-column: 2/3;
+      grid-row: 1/2;
+    }
+    .team3 {
+      height: 40px;
+      width: 40px;
+      background-color: gray;
+      border-radius: 50%;
+      grid-column: 3/4;
+      grid-row: 1/2;
+    }
+    .team4 {
+      height: 40px;
+      width: 40px;
+      background-color: gray;
+      border-radius: 50%;
+      grid-column: 4/5;
+      grid-row: 1/2;
+    }
+  }
+}
