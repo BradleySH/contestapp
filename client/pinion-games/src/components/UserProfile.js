@@ -7,7 +7,7 @@ import {UserContext} from "../context/UserProvider";
 import Footer from "./Navbar";
 
 
-const EmployeeProfile = () => {
+const UserProfile = () => {
   const { user: { firstName }, logout} = useContext(UserContext)
   return (
     <>
@@ -16,11 +16,11 @@ const EmployeeProfile = () => {
       <div className="circle"></div>
       <p><span>Team</span> Name</p>
     </div>
-    <div className="employee">
+    <div className="user">
       <div className="stats">
         <div className="user-stats">
         <div className="user">
-        <img src="<AccountCircleIcon />" default={<AccountCircleIcon />}/>
+        <img src="<AccountCircleIcon />" alt='profile' default={<AccountCircleIcon />}/>
         <p>Welcome, @{firstName}!</p>
       </div>
         <div className="cash">
@@ -87,4 +87,4 @@ const EmployeeProfile = () => {
   )
 }
 
-export default EmployeeProfile
+export default UserProfile

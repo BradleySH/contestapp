@@ -1,6 +1,5 @@
 const express = require('express')
 const Client = require('../models/client')
-const Team = require('../models/team')
 
 const clientRouter = express.Router()
 
@@ -12,6 +11,10 @@ clientRouter.route('/')
                 res.status(500)
                 return next(err)
             }
+            if(req.user.role !== 'admin'){
+                res.status(404)
+                return next(new Error('Admin Privilege only'))
+            }
             return res.status(200).send(clients)
         })
     })
@@ -21,6 +24,10 @@ clientRouter.route('/')
             if(err){
                 res.status(500)
                 return next(err)
+            }
+            if(req.user.role !== 'admin'){
+                res.status(404)
+                return next(new Error('Admin Privilege only'))
             }
             return res.status(201).send(savedClient)
         })
@@ -34,6 +41,10 @@ clientRouter.route('/:clientID')
                 res.status(500)
                 return next(err)
             }
+            if(req.user.role !== 'admin'){
+                res.status(404)
+                return next(new Error('Admin Privilege only'))
+            }
             return res.status(200).send(`Client: ${deletedClient.name} was removed `)
         })
     })
@@ -46,6 +57,10 @@ clientRouter.route('/:clientID')
                 if(err){
                     res.status(500)
                     return next(err)
+                }
+                if(req.user.role !== 'admin'){
+                    res.status(404)
+                    return next(new Error('Admin Privilege only'))
                 }
                 return res.status(201).send(updatedClient)
             }
