@@ -1,5 +1,3 @@
-
-
 const AuthForm = (props) => {
   const {
     handleChange,
@@ -15,11 +13,11 @@ const AuthForm = (props) => {
     <form className="admin-form" onSubmit={handleSubmit}>
       <label>Email:</label>
       <input 
-        type="email"
+        type="text"
         value={email}
         name="email"
         onChange={handleChange}
-        placeholder="example@example.com"
+        placeholder="Username"
         required
       />
       <label>Password:</label>

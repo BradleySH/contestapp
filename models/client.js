@@ -12,7 +12,9 @@ const clientSchema = new Schema({
     },
     access: {
         type: String,
-        required: true
+        required: true,
+        minLength: 6,
+        maxLength: 6
     }
 })
 
