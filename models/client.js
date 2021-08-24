@@ -14,7 +14,8 @@ const clientSchema = new Schema({
         type: String,
         required: true,
         minLength: 6,
-        maxLength: 6
+        maxLength: 6,
+        unique: true
     }
 })
 
