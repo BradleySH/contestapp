@@ -3,6 +3,7 @@ import axios from 'axios'
 import { useLocation } from 'react-router'
 
 import TeamTag from '../components/TeamTag'
+import TeamForm from '../components/TeamForm'
 
 const userAxios = axios.create()
 userAxios.interceptors.request.use(config => {
@@ -21,7 +22,19 @@ const Client = () => {
 
     function getTeams(){
         userAxios.get(`/team/${client._id}`)
-            .then(res => console.log(res))
+            .then(res => {
+                setTeams(res.data)
+            })
+            .catch(err => console.log(err))
+    }
+
+    function createTeam(e, inputs){
+        e.preventDefault()
+
+        userAxios.post(`/team/${client._id}`, inputs)
+            .then(res => {
+                setTeams(prevTeams => ([...prevTeams, res.data]))
+            })
             .catch(err => console.log(err))
     }
 
@@ -39,8 +52,11 @@ const Client = () => {
 
     return (
         <>
-        <p>{client.name}</p>
-        { client.commissioner === null ? <p>No commissioner assigned</p> : getCommissioner()}
+            <p>{client.name}</p>
+            { client.commissioner === null ? <p>No commissioner assigned</p> : getCommissioner()}
+            <label>Add Team</label>
+            <TeamForm submit={createTeam}/>
+            {teams.length > 0 ? teams.map(team => <TeamTag key={team._id} team={team} name={team.name} avatar={team.avatar} />) : <p>Currently no teams in this client</p>}
         </>
     )
 }

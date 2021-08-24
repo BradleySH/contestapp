@@ -41,8 +41,7 @@ const userSchema = new Schema({
   },
   client: {
     type: Schema.Types.ObjectId,
-    ref: "Client",
-    required: true
+    ref: "Client"
   },
   team: {
     type: Schema.Types.ObjectId,

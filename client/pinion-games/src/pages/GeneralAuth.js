@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 import { UserContext } from "../context/UserProvider";
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 
-import AuthForm from "../components/GeneralAuthForm";
-import AuthLogin from "../components/GeneralAuthLogin";
+import GeneralAuthForm from "../components/GeneralAuthForm";
+import GeneralAuthLogin from "../components/GeneralAuthLogin";
 import AdminAuth from "./AdminAuth"
 
-const initInputs = {firstName: "", lastName: "", email: "", password: ""}
+const initInputs = {firstName: "", lastName: "", email: "", password: "", access: ""}
 
 const Auth = () => {
   const [inputs, setInputs] = useState(initInputs);
@@ -38,7 +38,7 @@ const Auth = () => {
       <h1>PiNiON GAMES</h1>
       { !toggle ?
       <>
-      <AuthForm
+      <GeneralAuthForm
         handleChange={handleChange}
         handleSubmit={handleSignup}
         inputs={inputs}
@@ -48,7 +48,7 @@ const Auth = () => {
        </>
        :
        <>
-       <AuthLogin 
+       <GeneralAuthLogin 
         handleChange={handleChange}
         handleSubmit={handleLogin}
         inputs={inputs}

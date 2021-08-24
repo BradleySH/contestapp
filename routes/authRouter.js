@@ -2,11 +2,13 @@ const express = require("express");
 const authRouter = express.Router();
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
+const Client = require("../models/client")
 
 
 // Sign Up
 
 authRouter.post("/signup", (req, res, next) => {
+  console.log(req.body)
   User.findOne( { email: req.body.email.toLowerCase() }, (err, user) => {
     if(err){
       res.status(500)
@@ -20,6 +22,19 @@ authRouter.post("/signup", (req, res, next) => {
       res.status(403)
       return next(new Error("Email is already taken"))
     }
+    Client.findOne( {access: req.body.access}, (err, client) => {
+      if(err){
+        res.status(500)
+        return next(err)
+      }
+      if(!client){
+        res.status(403)
+        return next(new Error("Access Code is not valid"))
+      }
+      req.body.client = client._id
+      return
+    })
+    delete req.body.access
     const newUser = new User(req.body)
     newUser.save((err, savedUser) => {
       if(err) {
