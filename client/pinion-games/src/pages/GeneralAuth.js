@@ -1,10 +1,11 @@
 import React, {useState, useContext} from "react";
-import {Link} from "react-router-dom";
-import AuthForm from "./AuthForm";
-import {UserContext} from "../context/UserProvider";
-import AuthLogin from "./AuthLogin";
-import Admin from "./Admin"
+import { Link } from "react-router-dom";
+import { UserContext } from "../context/UserProvider";
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
+
+import AuthForm from "../components/GeneralAuthForm";
+import AuthLogin from "../components/GeneralAuthLogin";
+import AdminAuth from "./AdminAuth"
 
 const initInputs = {firstName: "", lastName: "", email: "", password: ""}
 
@@ -58,7 +59,7 @@ const Auth = () => {
       }
       <div className="adminBtn">
         <SupervisorAccountIcon className="icon" style={{ color: "#1c3557" }} />
-        <Link className="link" to="/admin" render={() => <Admin handleChange={handleChange} handleSubmit={handleLogin} inputs={inputs} />}>Admin?</Link>
+        <Link className="link" to="/admin" render={() => <AdminAuth handleChange={handleChange} handleSubmit={handleLogin} inputs={inputs} />}>Admin?</Link>
       </div>
       
     </div>

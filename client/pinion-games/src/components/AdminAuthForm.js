@@ -11,7 +11,7 @@ const AuthForm = (props) => {
 
   return (
     <form className="admin-form" onSubmit={handleSubmit}>
-      <label>Email:</label>
+      <label>Username:</label>
       <input 
         type="text"
         value={email}

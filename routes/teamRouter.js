@@ -24,4 +24,22 @@ teamRouter.route('/:clientID')
         })
     })
 
+teamRouter.route('/:teamID')
+    .delete((req, res, next) => {
+        Team.findOneAndDelete( { _id: req.params.teamID}, (err, team) => {
+            if(err){
+                res.status(500)
+                return next(err)
+            }
+        })
+    })
+    .put((req, res, next) => {
+        Team.findOneAndUpdate( { _id: req.params.teamID }, (err, team) => {
+            if(err){
+                res.status(500)
+                return next(err)
+            }
+        })
+    })
+
 module.exports = teamRouter

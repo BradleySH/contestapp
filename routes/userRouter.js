@@ -19,4 +19,15 @@ userRouter.route('/')
         })
     })
 
+userRouter.route('/:userID')
+    .get((req, res, next) => {
+        User.findOne( { _id: req.params.userID }, (err, user) => {
+            if(err){
+                res.status(500)
+                return next(err)
+            }
+            return res.status(200).send(user.withoutPassword())
+        })
+    })
+
 module.exports = userRouter

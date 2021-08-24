@@ -1,38 +1,78 @@
-import {UserContext} from "../context/UserProvider";
-import React, {useState, useContext} from "react";
-import AdminForm from "./AdminForm";
+import { useState, useEffect } from "react"
+import axios from "axios"
 
-const initInputs = { email: "", password: ""}
+import Header from "./Header"
+import ClientTag from "./ClientTag"
+import ClientForm from "./ClientForm"
 
-const Auth = () => {
-  const [inputs, setInputs] = useState(initInputs);
+const userAxios = axios.create()
+userAxios.interceptors.request.use(config => {
+    const token = localStorage.getItem("token")
+    config.headers.Authorization = `Bearer ${token}`
+    return config
+})
 
-  const { login } = useContext(UserContext);
+const Admin = () => {
 
-  const handleChange = (e) => {
-    const { name, value } = e.target
-    setInputs(prevInputs => ({
-      ...prevInputs,
-      [name]: value
-    }))
-  };
-
-  const handleLogin = (e) => {
+  const initState = []
+  const [clients, setClients] = useState(initState)
+  
+  function getClients(){
+    userAxios.get("/api/client")
+      .then(res => {
+        setClients(res.data)
+      })
+      .catch(err => console.log(err))
+  }
+  
+  function createClient(e, inputs){
     e.preventDefault()
-    login(inputs)
-  };
+    
+    userAxios.post("/api/client", inputs)
+    .then(res => setClients(prevClients => ([...prevClients, res.data])))
+    .catch(err => console.log(err))
+  }
+
+  function deleteClient(_id){
+    userAxios.delete(`/api/client/${_id}`)
+      .then(res => console.log(res.data))
+      .catch(err => console.log(err))
+  }
+
+  function editClient(inputs, _id){
+    const clientObj = {
+      name: inputs.name,
+      access: inputs.access,
+      commissioner: inputs.commissioner
+    }
+
+    userAxios.put(`/api/client/${_id}`, clientObj)
+      .then(res => console.log(res.data))
+      .catch(err => console.log(err))
+  }
+
+  function getUsers(){
+    userAxios.get("/api/users")
+      .then(res => console.log(res))
+      .catch(err => console.log(err))
+  }
+
+  useEffect(() => {
+    getClients()
+    getUsers()
+  }, [])
 
   return (
-    <div className="admin-container">
-      <h1>ADMiN LOGiN</h1>
-       <AdminForm 
-        handleChange={handleChange}
-        handleSubmit={handleLogin}
-        inputs={inputs}
-        btnText="Login"
-       />
+    <>
+    <Header />
+    <div>
+      <h1>ADMiN</h1>
+      <h2>Your Clients</h2>
+      {clients.map(client => <ClientTag key={client._id} client={client} _id={client._id} name={client.name} commissioner={client.commissioner}/>)}
+      <ClientForm submit={createClient} />
     </div>
+    </>
   )
-};
+}
 
-export default Auth
+export default Admin
