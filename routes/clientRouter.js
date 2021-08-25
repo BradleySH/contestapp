@@ -35,6 +35,15 @@ clientRouter.route('/')
 
     // Edit/Delete Client 
 clientRouter.route('/:clientID')
+    .get((req, res, next) => {
+        Client.findOne( {_id: req.params.clientID}, (err, client) => {
+            if(err){
+                res.status(500)
+                return next(err)
+            }
+            return res.status(200).send(client)
+        })
+    })
     .delete((req, res, next) => {
         Client.findOneAndDelete( { _id: req.params.clientID }, (err, deletedClient) => {
             if(err){

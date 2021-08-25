@@ -1,17 +1,19 @@
-import React, {useContext} from "react";
-import {Switch, Route, Redirect} from "react-router-dom";
+import React, {useContext} from "react"
+import {Switch, Route, Redirect} from "react-router-dom"
 import {UserContext} from "./context/UserProvider"
-import "./App.scss";
+import "./App.scss"
 
 import GeneralAuth from "./pages/GeneralAuth"
 import AdminAuth from "./pages/AdminAuth"
-import ProtectedRoute from "./components/ProtectedRoute";
+import ProtectedRoute from "./components/ProtectedRoute"
 import Profile from "./pages/Profile"
 import Client from "./pages/Client"
+import CreateClient from "./pages/CreateClient"
 import Team from "./pages/Team"
+import CreateTeam from "./pages/CreateTeam"
 
 function App() {
-  const { 
+  const {
     token,
     user: {
       role
@@ -56,14 +58,26 @@ function App() {
           token={token}
         />
         <ProtectedRoute
+          path='/createclient'
+          component={CreateClient}
+          redirectTo='/'
+          token={token}
+        />
+        <ProtectedRoute
           path='/team'
           component={Team}
           redirectTo='/'
           token={token}
         />
+        <ProtectedRoute
+          path='/createteam'
+          component={CreateTeam}
+          redirectTo='/'
+          token={token}
+        />
       </Switch>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

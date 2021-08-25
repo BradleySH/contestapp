@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react"
+import { Link } from "react-router-dom"
 import axios from "axios"
 
 import Header from "./Header"
 import ClientTag from "./ClientTag"
-import ClientForm from "./ClientForm"
 
 const userAxios = axios.create()
 userAxios.interceptors.request.use(config => {
@@ -24,14 +24,6 @@ const Admin = () => {
       })
       .catch(err => console.log(err))
   }
-  
-  function createClient(e, inputs){
-    e.preventDefault()
-    
-    userAxios.post("/api/client", inputs)
-    .then(res => setClients(prevClients => ([...prevClients, res.data])))
-    .catch(err => console.log(err))
-  }
 
   function deleteClient(_id){
     userAxios.delete(`/api/client/${_id}`)
@@ -50,16 +42,9 @@ const Admin = () => {
       .then(res => console.log(res.data))
       .catch(err => console.log(err))
   }
-
-  function getUsers(){
-    userAxios.get("/api/users")
-      .then(res => console.log(res))
-      .catch(err => console.log(err))
-  }
-
+  
   useEffect(() => {
     getClients()
-    getUsers()
   }, [])
 
   return (
@@ -71,7 +56,9 @@ const Admin = () => {
       </div>
       <div className="client-grid">
         {clients.map(client => <ClientTag key={client._id} client={client} _id={client._id} name={client.name} commissioner={client.commissioner}/>)}
-        <ClientForm submit={createClient} />
+        <Link to='/createclient' style={{width: '145px', height: '145px', borderRadius: '50%', boxShadow: '0 0 10px blue', display: 'grid', placeItems: 'center', color: '#1c3557', fontSize: '24px', textAlign: 'center', textDecoration: 'none'}}>
+        + NEW CLiENT
+        </Link>
       </div>
     </div>
     </>

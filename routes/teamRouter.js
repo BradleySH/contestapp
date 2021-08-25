@@ -1,8 +1,9 @@
 const express = require('express')
 const teamRouter = express.Router()
 const Team = require('../models/team')
+const User = require('../models/user')
 
-teamRouter.route('/:clientID')
+teamRouter.route('/client/:clientID')
     .get((req, res, next) => {
         Team.find( { client: req.params.clientID}, (err, teams) => {
             if(err){
@@ -21,6 +22,18 @@ teamRouter.route('/:clientID')
                 return next(err)
             }
             return res.status(201).send(savedTeam)
+        })
+    })
+
+teamRouter.route('/:teamID/member')
+    .get((req, res, next) => {
+        User.find( { team: req.params.teamID }, (err, users) => {
+            if(err){
+                res.status(500)
+                return next(err)
+            }
+            const modifiedUsers = users.map(user => user.withoutPassword())
+            return res.status(200).send(modifiedUsers)
         })
     })
 
