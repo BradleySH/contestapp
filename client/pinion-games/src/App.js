@@ -3,11 +3,12 @@ import {Switch, Route, Redirect} from "react-router-dom";
 import {UserContext} from "./context/UserProvider"
 import "./App.scss";
 
-import Auth from "./components/Auth"
+import GeneralAuth from "./pages/GeneralAuth"
+import AdminAuth from "./pages/AdminAuth"
 import ProtectedRoute from "./components/ProtectedRoute";
-import Admin from "./components/Admin"
-import EmployeeProfile from "./components/UserProfile";
-import AdminProfile from "./components/AdminProfile";
+import Profile from "./pages/Profile"
+import Client from "./pages/Client"
+import Team from "./pages/Team"
 
 function App() {
   const { 
@@ -23,10 +24,10 @@ function App() {
           exact path='/'
           render={() => {
             if(token && role === 'general'){
-              return <Redirect to='/home' />
+              return <Redirect to='/profile' />
             }
             else {
-              return <Auth />
+              return <GeneralAuth />
             }
           }}
         />
@@ -34,17 +35,29 @@ function App() {
           path="/admin"
           render={() => {if(token && role === 'admin'){
             console.log(role)
-            return <Redirect to='/home' />
+            return <Redirect to='/profile' />
           }
           else {
             console.log(role)
-            return <Admin />
+            return <AdminAuth />
           }
   }}
         />
         <ProtectedRoute
-          path='/home'
-          component={role === 'general' ? EmployeeProfile : AdminProfile}
+          path='/profile'
+          component={Profile}
+          redirectTo='/'
+          token={token}
+        />
+        <ProtectedRoute
+          path='/client'
+          component={Client}
+          redirectTo='/'
+          token={token}
+        />
+        <ProtectedRoute
+          path='/team'
+          component={Team}
           redirectTo='/'
           token={token}
         />

@@ -1,5 +1,3 @@
-
-
 const AuthForm = (props) => {
   const {
     handleChange,
@@ -9,7 +7,8 @@ const AuthForm = (props) => {
       firstName,
       lastName,
       email,
-      password
+      password,
+      access
     }
   } = props
 
@@ -48,6 +47,17 @@ const AuthForm = (props) => {
         onChange={handleChange}
         placeholder="Password"
         minLength="5"
+        required
+      />
+      <label>Access Code (Case Sensitive)</label>
+      <input 
+        type="text"
+        value={access}
+        name="access"
+        onChange={handleChange}
+        placeholder="Access Code"
+        minLength="6"
+        maxLength="6"
         required
       />
       <button>{ btnText }</button>

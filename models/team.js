@@ -12,7 +12,8 @@ const teamSchema = new Schema({
     },
     coach: {
             type: Schema.Types.ObjectId,
-            ref: 'User'
+            ref: 'User',
+            default: null
     },
     members: [{
                 type: Schema.Types.ObjectId,
