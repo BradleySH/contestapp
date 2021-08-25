@@ -65,11 +65,14 @@ const Admin = () => {
   return (
     <>
     <Header />
-    <div>
-      <h1>ADMiN</h1>
-      <h2>Your Clients</h2>
-      {clients.map(client => <ClientTag key={client._id} client={client} _id={client._id} name={client.name} commissioner={client.commissioner}/>)}
-      <ClientForm submit={createClient} />
+    <div className="admin-client">
+      <div className="admin-header">
+        <h1>ADMiN</h1>
+      </div>
+      <div className="client-grid">
+        {clients.map(client => <ClientTag key={client._id} client={client} _id={client._id} name={client.name} commissioner={client.commissioner}/>)}
+        <ClientForm submit={createClient} />
+      </div>
     </div>
     </>
   )

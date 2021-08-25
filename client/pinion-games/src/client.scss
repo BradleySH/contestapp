@@ -1,0 +1,59 @@
+// Admin Client  from Admin.js
+.admin-client {
+  justify-content: center;
+  align-items: center;
+
+  .admin-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 148px;
+    width: 100vw;
+    background-color: #1c3557;
+    h1 {
+      color: white;
+      font-size: 36px;
+    }
+  }
+  .client-grid {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+  .client-tag {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 145px;
+    width: 145px;
+    border-radius: 50%;
+  }
+
+  .form-container {
+    border-radius: 50%;
+    height: 145px;
+    width: 145px;
+
+    .client-form {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+    }
+  }
+}
+
+.client-header {
+  height: 149px;
+  width: 100vw;
+  padding-top: 45px;
+  padding-left: 15px;
+  background-color: #1c3557;
+
+  p {
+    font-size: 36px;
+    color: white;
+  }
+}
