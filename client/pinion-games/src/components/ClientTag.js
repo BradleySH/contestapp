@@ -1,11 +1,12 @@
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
+import "../client.scss"
 
 const ClientTag = (props) => {
 
     const {name, client} = props
 
     return (
-        <div style={{border: '1px solid black'}}>
+        <div className="client-tag" style={{border: '1px solid black'}}>
             <Link to={{
                 pathname: '/client',
                 state: {
