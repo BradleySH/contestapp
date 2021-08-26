@@ -1,11 +1,12 @@
 import axios from 'axios'
 import { useLocation, Redirect } from 'react-router'
 import { Link } from 'react-router-dom'
-import "../client.scss"
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import "../App.scss"
 
 import Header from "../components/Header"
+import SubHeader from '../components/SubHeader'
 import TeamForm from "../components/TeamForm"
+import FooterNavbar from "../components/FooterNavbar";
 
 const userAxios = axios.create()
 userAxios.interceptors.request.use(config => {
@@ -17,12 +18,12 @@ userAxios.interceptors.request.use(config => {
 const CreateTeam = () => {
 
     const location = useLocation()
-    const {clientInfo} = location.state
+    const {client} = location.state
 
     function createTeam(e, inputs){
         e.preventDefault()
 
-        userAxios.post(`/api/team/client/${clientInfo._id}}`, inputs)
+        userAxios.post(`/api/team/client/${client._id}`, inputs)
             .then(res => console.log(res.data))
             .catch(err => console.log(err))
     }
@@ -30,11 +31,9 @@ const CreateTeam = () => {
     return (
         <>
             <Header />
-            <div className="client-header">
-                <p><Link to='/profile'><ArrowBackIosIcon /></Link> Create a New</p> // tried to use a redirect here with no luck
-                <h2>Team</h2>
-            </div>
+            <SubHeader header1={'CREATE A NEW'} header2={'TEAM'}/>
             <TeamForm submit={createTeam} />
+            <FooterNavbar />
         </>
     )
 

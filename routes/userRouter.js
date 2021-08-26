@@ -30,4 +30,15 @@ userRouter.route('/:userID')
         })
     })
 
+userRouter.route('/client/:clientID')
+    .get((req, res, next) => {
+        User.find( {client: req.params.clientID}, (err, users) => {
+            if(err){
+                res.status(500)
+                return next(err)
+            }
+            return res.status(200).send(users)
+        })
+    })
+
 module.exports = userRouter

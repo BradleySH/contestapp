@@ -143,6 +143,39 @@
   }
 }
 
+.sub-header {
+  height: 149px;
+  width: 100vw;
+  padding-top: 45px;
+  padding-left: 15px;
+  background-color: #1c3557;
+
+  h1 {
+    font-size: 26px;
+    color: white;
+  }
+
+  h2 {
+    font-size: 36px;
+    color: white;
+  }
+}
+
+.tag {
+  margin: 37px 29px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 145px;
+  width: 145px;
+  border-radius: 50%;
+  text-decoration: none;
+  color: white;
+  background-color: #1c3557;
+  text-align: center;
+  text-decoration: none;
+}
+
 .team-name {
   height: 160px;
   font-size: 64px;
@@ -336,5 +369,30 @@
       grid-column: 4/5;
       grid-row: 1/2;
     }
+  }
+}
+
+.action-menu {
+  font-size: 40px;
+}
+
+.action-tool {
+  position: relative;
+  background-color: #FFFFFF;
+  width: 211px;
+  height: 121px;
+  display: grid;
+  direction: column;
+  .close{
+    color: #A9DADC;
+    background: none;
+  }
+  .delete{
+    display: flex;
+    justify-self: end;
+  }
+  .edit{
+    display: flex;
+    justify-self: end;
   }
 }

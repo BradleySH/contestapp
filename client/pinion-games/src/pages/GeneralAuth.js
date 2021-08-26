@@ -11,9 +11,9 @@ const initInputs = {firstName: "", lastName: "", email: "", password: "", access
 
 const Auth = () => {
   const [inputs, setInputs] = useState(initInputs);
-  const [toggle, setToggle] = useState(false);
+  const [toggle, setToggle] = useState(true);
 
-  const { signup, login } = useContext(UserContext);
+  const { signup, login, errMsg, resetAuthError } = useContext(UserContext);
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -33,6 +33,11 @@ const Auth = () => {
     login(inputs)
   };
 
+  const handleToggle = () => {
+    setToggle(prevToggle => !prevToggle)
+    resetAuthError()
+  }
+
   return (
     <div className="auth-container">
       <h1>PiNiON GAMES</h1>
@@ -42,22 +47,24 @@ const Auth = () => {
         handleChange={handleChange}
         handleSubmit={handleSignup}
         inputs={inputs}
+        errMsg={errMsg}
         btnText="Sign Up"
        />
-       <p onClick={() => setToggle(prev => !prev)}>Already a Member?</p>
+       <p onClick={handleToggle}>Already a Member?</p>
        </>
        :
        <>
        <GeneralAuthLogin 
         handleChange={handleChange}
         handleSubmit={handleLogin}
+        errMsg={errMsg}
         inputs={inputs}
         btnText="Login"
        />
-       <p onClick={() => setToggle(prev => !prev)}>Not a member?</p>
+       <p onClick={handleToggle}>Not a member?</p>
        </>
       }
-      <div className="adminBtn">
+      <div className="adminBtn" onClick={handleToggle}>
         <SupervisorAccountIcon className="icon" style={{ color: "#1c3557" }} />
         <Link className="link" to="/admin" render={() => <AdminAuth handleChange={handleChange} handleSubmit={handleLogin} inputs={inputs} />}>Admin?</Link>
       </div>

@@ -1,11 +1,16 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 import { useLocation } from "react-router"
+import { UserContext } from "../context/UserProvider";
 import axios from "axios"
-import "../client.scss"
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 
 import Header from "../components/Header";
+import SubHeader from "../components/SubHeader";
 import MemberTag from "../components/MemberTag"
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import CancelIcon from '@material-ui/icons/Cancel';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
+import FooterNavbar from "../components/FooterNavbar";
 
 const userAxios = axios.create()
 userAxios.interceptors.request.use(config => {
@@ -19,14 +24,78 @@ const Team = () => {
     const location = useLocation()
     const { team, client } = location.state
 
+    const {user: {role}} = useContext(UserContext)
+
     const [members, setMembers] = useState([])
     const [coach, setCoach] = useState({})
+    const [toggle, setToggle] = useState(false)
+
+    function hasPermission(){
+        if(role === 'admin'){
+            return (
+            <>
+                {!toggle ? <MoreHorizIcon fontSize={'large'} onClick={handleToggle} /> :
+                <div className="action-tool" style={{border: '2px solid black'}}>
+                    <div className="close">
+                        <CancelIcon onClick={handleToggle}/>
+                    </div>
+                    <div className="delete">
+                        <DeleteIcon onClick={() => console.log('Delete')} />
+                        <p>Delete Client</p>
+                    </div>
+                    <div className="edit">
+                        <EditIcon onClick={() => console.log('Edit')}/>
+                        <p>Edit Client</p>
+                    </div>
+                </div>}
+            </>
+            )
+        } else if(role === 'commissioner'){
+            return (
+            <>
+                {!toggle ? <MoreHorizIcon fontSize={'large'} onClick={handleToggle} /> :
+                <div className="action-tool" style={{border: '2px solid black'}}>
+                    <div className="close">
+                        <CancelIcon onClick={handleToggle}/>
+                    </div>
+                    <div className="delete">
+                        <DeleteIcon onClick={() => console.log('Delete')} />
+                        <p>Delete Client</p>
+                    </div>
+                    <div className="edit">
+                        <EditIcon onClick={() => console.log('Edit')}/>
+                        <p>Edit Client</p>
+                    </div>
+                </div>}
+            </>
+            )
+        } else {
+            return null
+        }
+    }
+
+    function deleteTeam(_id){
+        userAxios.delete(`/api/team/${team._id}`)
+          .then(res => console.log(res))
+          .catch(err => console.log(err))
+    }
+
+    function editTeam(inputs, _id){
+        userAxios.put(`/api/team/${team._id}`, inputs)
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
+    }
 
     function getTeamMembers(){
         userAxios.get(`/api/team/${team._id}/member`)
             .then(res => console.log(res))
             .catch(err => console.log(err))
     }
+
+    function handleToggle(){
+        setToggle(prevToggle => !prevToggle)
+    }
+
 
     function getCoach(){
         userAxios.get(`/api/user/${team.coach}`)
@@ -43,12 +112,8 @@ const Team = () => {
     return (
         <>
             <Header />
-            <div className="client-header">
-                <p><ArrowBackIosIcon />{client}</p>
-                <h3>{team.name}</h3>
-                <img src={team.avatar} alt={team.avatar} style={{visibility: 'hidden', width: '200px', height: '200px', borderRadius: '50%'}}/>
-            </div>
-
+            <SubHeader header1={client.name} header2={team.name}/>
+            {hasPermission()}
             <div>
                 Coach: {team.coach === null ? <p>Not Assigned</p> : getCoach()}
             </div>
@@ -58,6 +123,7 @@ const Team = () => {
             : 
                 <p>Currently no members assigned to this team.</p>
             }
+            <FooterNavbar />
         </>
     )
 }

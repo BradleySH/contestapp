@@ -6,6 +6,7 @@ import axios from 'axios'
 
 import Header from "../components/Header"
 import ClientForm from "../components/ClientForm"
+import FooterNavbar from "../components/FooterNavbar";
 
 const userAxios = axios.create()
 userAxios.interceptors.request.use(config => {
@@ -34,6 +35,7 @@ const CreateClient = () => {
                 <h2>Client</h2>
             </div>
             <ClientForm submit={createClient} />
+            <FooterNavbar />
         </div>
     )
 }
