@@ -23,12 +23,17 @@
     align-items: center;
   }
   .client-tag {
+    margin: 37px 29px;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 145px;
     width: 145px;
     border-radius: 50%;
+    text-decoration: none;
+    color: white;
+    background-color: #1c3557;
+    text-align: center;
   }
 
   .form-container {

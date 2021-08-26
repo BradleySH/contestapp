@@ -4,11 +4,11 @@ import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import StarsIcon from '@material-ui/icons/Stars';
 import Header from './Header';
 import {UserContext} from "../context/UserProvider";
-import Footer from "./Navbar";
+import FooterNavbar from "./FooterNavbar";
 
 
 const UserProfile = () => {
-  const { user: { firstName }, logout} = useContext(UserContext)
+  const { user: { firstName, avatar }, logout} = useContext(UserContext)
   return (
     <>
     <Header />
@@ -82,7 +82,7 @@ const UserProfile = () => {
       </div>
     </div>
     <button onClick={logout}>Logout</button>
-    <Footer />
+    <FooterNavbar />
     </>
   )
 }

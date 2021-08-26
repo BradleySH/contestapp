@@ -7,7 +7,7 @@ import GeneralAuthForm from "../components/GeneralAuthForm";
 import GeneralAuthLogin from "../components/GeneralAuthLogin";
 import AdminAuth from "./AdminAuth"
 
-const initInputs = {firstName: "", lastName: "", email: "", password: "", access: ""}
+const initInputs = {firstName: "", lastName: "", email: "", password: "", access: "", client:""}
 
 const Auth = () => {
   const [inputs, setInputs] = useState(initInputs);

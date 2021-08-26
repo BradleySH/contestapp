@@ -1,8 +1,8 @@
 const express = require("express");
 const authRouter = express.Router();
 const User = require("../models/user");
-const jwt = require("jsonwebtoken");
 const Client = require("../models/client")
+const jwt = require("jsonwebtoken");
 
 
 // Sign Up
@@ -32,17 +32,18 @@ authRouter.post("/signup", (req, res, next) => {
         return next(new Error("Access Code is not valid"))
       }
       req.body.client = client._id
-      return
-    })
-    delete req.body.access
-    const newUser = new User(req.body)
-    newUser.save((err, savedUser) => {
-      if(err) {
-        res.status(500)
-        return next(500)
-      }
-      const token = jwt.sign(savedUser.withoutPassword(), process.env.SECRET)
-      return res.status(201).send( {token, user: savedUser.withoutPassword()} )
+      delete req.body.access
+      console.log(req.body)
+      const newUser = new User(req.body)
+      newUser.save((err, savedUser) => {
+        console.log(newUser)
+        if(err) {
+          res.status(500)
+          return next(err)
+        }
+        const token = jwt.sign(savedUser.withoutPassword(), process.env.SECRET)
+        return res.status(201).send( {token, user: savedUser.withoutPassword()} )
+      })
     })
   })
 });
@@ -57,12 +58,12 @@ authRouter.post("/login", (req, res, next) => {
     }
     if(!user){
         res.status(403)
-        return next(new Error('Email or Password are incorrect'))
+        return next(new Error('No user'))
     }
     user.checkPassword(req.body.password, (err, isMatch) => {
         if(err){
             res.status(403)
-            return next(new Error('Email or Password are incorrect'))
+            return next(new Error('Pword are incorrect'))
         }
         if(!isMatch){
             res.status(403)

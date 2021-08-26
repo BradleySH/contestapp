@@ -26,8 +26,8 @@ mongoose.connect(
 app.use("/auth", require("./routes/authRouter"));
 app.use("/api", jwt({ secret: process.env.SECRET, algorithms:["HS256"]}));
 app.use("/api/client", require('./routes/clientRouter'))
-app.use("/api/users", require("./routes/userRouter"))
-app.use("/team", require("./routes/teamRouter"))
+app.use("/api/user", require("./routes/userRouter"))
+app.use("/api/team", require("./routes/teamRouter"))
 app.use("/event", require("./routes/eventRouter"))
 
 app.use((err, req, res, next) => {

@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom';
 import axios from 'axios'
 import { useLocation } from 'react-router'
+import { useContext } from 'react';
+import { UserContext } from '../context/UserProvider';
 
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import TeamTag from '../components/TeamTag'
@@ -17,38 +20,38 @@ userAxios.interceptors.request.use(config => {
 
 const Client = () => {
 
-    const location = useLocation()
-    const { client } = location.state
+    const { user: {client, role} } = useContext(UserContext)
 
-    const [commissioner, setComissioner] = useState({})
+    const [clientInfo, setClientInfo] = useState({})
+    const [commissioner, setCommissioner] = useState({})
     const [teams, setTeams] = useState([])
 
     function getTeams(){
-        userAxios.get(`/team/${client._id}`)
+        userAxios.get(`/api/team/client/${client}`)
             .then(res => {
                 setTeams(res.data)
             })
             .catch(err => console.log(err))
     }
 
-    function createTeam(e, inputs){
-        e.preventDefault()
-
-        userAxios.post(`/team/${client._id}`, inputs)
+    function getClient(){
+        userAxios.get(`/api/client/${client}`)
             .then(res => {
-                setTeams(prevTeams => ([...prevTeams, res.data]))
+                setClientInfo(res.data)
+                getCommissioner(res.data.commissioner)
             })
             .catch(err => console.log(err))
     }
 
-    function getCommissioner(){
-        userAxios.get(`/users/${client.commissioner}`)
-            .then(res => console.log(res))
+    function getCommissioner(_id){
+        userAxios.get(`/api/user/${_id}`)
+            .then(res => setCommissioner(res.data))
             .catch(err => console.log(err))
     }
 
     useEffect(() => {
-
+        
+        getClient()
         getTeams()
 
     }, [])
@@ -57,15 +60,67 @@ const Client = () => {
         <>
         <Header />
         <div className="client-header">
-            <p><ArrowBackIosIcon />{client.name}</p>
+            <p><ArrowBackIosIcon /> {clientInfo.name}</p>
+            <h2>TEAMS</h2>
         </div>
         <div className="comm-container">
-            { client.commissioner === null ? <p>No commissioner assigned</p> : getCommissioner()}
-            <label>Add Team</label>
-            <TeamForm submit={createTeam}/>
-            {teams.length > 0 ? teams.map(team => <TeamTag key={team._id} team={team} name={team.name} avatar={team.avatar} />) : <p>Currently no teams in this client</p>}
+            <p>
+                Commissioner: {commissioner.firstName === undefined ? 'No commissioner assigned' : `${commissioner.firstName} ${commissioner.lastName}`}
+            </p>
+            <div style={{margin: '16px'}}>
+                {teams.map(team => <TeamTag 
+                                        key={team._id} 
+                                        team={team} 
+                                        client={client.name} 
+                                        name={team.name} 
+                                        avatar={team.avatar} 
+                                    />
+                )}
+                {role === 'admin' ? 
+                    
+                <Link to='/createteam' 
+                    style={{
+                        borderRadius: '50%', 
+                        boxShadow: '0 0 10px blue', 
+                        backgroundColor: 'grey',
+                        color: 'white', 
+                        display: 'grid', 
+                        fontSize: '24px', 
+                        height: '145px',
+                        margin: '16px', 
+                        placeItems: 'center', 
+                        textAlign: 'center', 
+                        textDecoration: 'none',
+                        width: '145px',
+                    }}>
+                + NEW TEAM
+                </Link>
+                :
+                role === 'commissioner' ? 
+                    
+                <Link to={{pathname: '/createteam', state: {clientInfo}}}
+                    style={{
+                        borderRadius: '50%', 
+                        boxShadow: '0 0 10px blue', 
+                        backgroundColor: 'grey',
+                        color: 'white', 
+                        display: 'grid', 
+                        fontSize: '24px', 
+                        height: '145px',
+                        margin: '16px', 
+                        placeItems: 'center', 
+                        textAlign: 'center', 
+                        textDecoration: 'none',
+                        width: '145px',
+                    }}>
+                + NEW TEAM
+                </Link>
+                :
+                null
+                
+            }
+            </div>
         </div>
-           
         </>
     )
 }

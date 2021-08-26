@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react"
 import { useLocation } from "react-router"
 import axios from "axios"
+import "../client.scss"
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 
+import Header from "../components/Header";
 import MemberTag from "../components/MemberTag"
 
 const userAxios = axios.create()
@@ -14,31 +17,38 @@ userAxios.interceptors.request.use(config => {
 const Team = () => {
 
     const location = useLocation()
-    const { team } = location.state
+    const { team, client } = location.state
 
     const [members, setMembers] = useState([])
     const [coach, setCoach] = useState({})
 
     function getTeamMembers(){
-        userAxios.get(`/team/${team._id}`)
+        userAxios.get(`/api/team/${team._id}/member`)
             .then(res => console.log(res))
             .catch(err => console.log(err))
     }
 
     function getCoach(){
-        userAxios.get(`/users/${team.coach}`)
+        userAxios.get(`/api/user/${team.coach}`)
             .then(res => console.log(res))
             .catch(err => console.log(err))
     }
 
     useEffect(() => {
-        console.log('Get Team Members')
+        getTeamMembers()
     }, [])
+
+    console.log(client)
 
     return (
         <>
-            <p>{team.name}</p>
-            <img src={team.avatar} alt={team.avatar}/>
+            <Header />
+            <div className="client-header">
+                <p><ArrowBackIosIcon />{client}</p>
+                <h3>{team.name}</h3>
+                <img src={team.avatar} alt={team.avatar} style={{visibility: 'hidden', width: '200px', height: '200px', borderRadius: '50%'}}/>
+            </div>
+
             <div>
                 Coach: {team.coach === null ? <p>Not Assigned</p> : getCoach()}
             </div>

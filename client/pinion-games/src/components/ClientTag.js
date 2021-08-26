@@ -6,16 +6,14 @@ const ClientTag = (props) => {
     const {name, client} = props
 
     return (
-        <div className="client-tag" style={{border: '1px solid black'}}>
-            <Link to={{
-                pathname: '/client',
-                state: {
-                    client: client
-                }
-            }}>
+        <Link className="client-tag" to={{
+            pathname: '/client',
+            state: {
+                client: client
+            }
+        }}>
             <h2>{name}</h2>
-            </Link>
-        </div>
+        </Link>
     )
 }
 
