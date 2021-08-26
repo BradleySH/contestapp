@@ -30,7 +30,7 @@ const CreateClient = () => {
         <div>
             <Header />
             <div className="client-header">
-                <p><Link to='/profile'><ArrowBackIosIcon /></Link> Create a New</p>
+                <p><Link to='/profile'><ArrowBackIosIcon onClick={() => <Redirect to={"/admin"} />} /></Link> Create a New</p>
                 <h2>Client</h2>
             </div>
             <ClientForm submit={createClient} />
