@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { useLocation } from 'react-router'
+import { useLocation, Redirect } from 'react-router'
 import { Link } from 'react-router-dom'
 import "../client.scss"
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
@@ -31,7 +31,7 @@ const CreateTeam = () => {
         <>
             <Header />
             <div className="client-header">
-                <p><Link to='/profile'><ArrowBackIosIcon /></Link> Create a New</p>
+                <p><Link to='/profile'><ArrowBackIosIcon /></Link> Create a New</p> // tried to use a redirect here with no luck
                 <h2>Team</h2>
             </div>
             <TeamForm submit={createTeam} />
