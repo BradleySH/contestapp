@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import axios from 'axios'
-import { useLocation } from 'react-router'
+import { useLocation, Redirect } from 'react-router' // wont let me use Redirect either could be some other issue blocking it.
 import { useContext } from 'react';
 import { UserContext } from '../context/UserProvider';
 
@@ -60,7 +60,7 @@ const Client = () => {
         <>
         <Header />
         <div className="client-header">
-            <p><ArrowBackIosIcon /> {clientInfo.name}</p>
+            <p><ArrowBackIosIcon onClick={() => <Redirect to={"/admin"} />}/> {clientInfo.name}</p>
             <h2>TEAMS</h2>
         </div>
         <div className="comm-container">
