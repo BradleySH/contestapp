@@ -37,8 +37,40 @@ userRouter.route('/client/:clientID')
                 res.status(500)
                 return next(err)
             }
-            return res.status(200).send(users)
+            const modifiedUsers = users.map(user => user.withoutPassword())
+            return res.status(200).send(modifiedUsers)
         })
+    })
+
+userRouter.route('/team/:teamID')
+    .get((req, res, next) => {
+        User.find( {team: req.params.teamID }, (err, users) => {
+            if(err){
+                res.status(500)
+                return next(err)
+            }
+            const modifiedUsers = users.map(user => user.withoutPassword())
+            return res.status(200).send(modifiedUsers)
+        })
+    })
+    .put((req, res, next) => {
+        console.log(req.body)
+        const updatedMembers = req.body.members.map(memberID => {
+            User.findOneAndUpdate( 
+                { _id: memberID},
+                { team: req.params.teamID },
+                { new: true},
+                (err, updatedMember) => {
+                    if(err){
+                        res.status(500)
+                        return next(err)
+                    }
+                    return updatedMember
+                }
+            )
+        })
+        const modifiedUsers = updatedMembers.map(user => user.withoutPassword())
+        return res.status(201).send(modifiedUsers)
     })
 
 module.exports = userRouter

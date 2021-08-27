@@ -1,5 +1,6 @@
 const express = require('express')
 const Client = require('../models/client')
+const Team = require('../models/team')
 const User = require('../models/user')
 
 const clientRouter = express.Router()
@@ -59,16 +60,26 @@ clientRouter.route('/:clientID')
         })
     })
     .delete((req, res, next) => {
-        Client.findOneAndDelete( { _id: req.params.clientID }, (err, deletedClient) => {
+        User.deleteMany( {client: req.params.clientID}, (err, deletedUsers) => {
             if(err){
                 res.status(500)
                 return next(err)
             }
-            if(req.user.role !== 'admin'){
-                res.status(404)
-                return next(new Error('Admin Privilege only'))
+            console.log('All users were terminated from client')
+        })
+        Team.deleteMany( { client: req.params.clientID }, (err, deletedTeams) => {
+            if(err){
+                res.status(500)
+                return next(err)
             }
-            return res.status(200).send(`Client: ${deletedClient.name} was removed `)
+            console.log("All teams were terminated from client")
+        })
+        Client.findOneAndDelete( {_id: req.params.clientID }, ( err, deletedClient ) => {
+            if(err){
+                res.status(500)
+                return next(err)
+            }
+            return res.status(200).send(`Client: ${deletedClient.name}, was terminated from the database`)
         })
     })
     .put((req, res, next) => {

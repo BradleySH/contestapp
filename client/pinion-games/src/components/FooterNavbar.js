@@ -1,4 +1,7 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom"
+import { UserContext } from "../context/UserProvider";
+
 import EventAvailableIcon from '@material-ui/icons/EventAvailable';
 import HomeIcon from '@material-ui/icons/Home';
 import InsertInvitationIcon from '@material-ui/icons/InsertInvitation';
@@ -6,6 +9,8 @@ import InsertInvitationIcon from '@material-ui/icons/InsertInvitation';
 
 const FooterNavbar = () => {
   
+  const { user: {role} } = useContext(UserContext)
+
   return (
     <div className="navbar">
       <Link to="/events">
@@ -14,7 +19,7 @@ const FooterNavbar = () => {
           <EventAvailableIcon />
         </div>
       </Link>
-      <Link to="/client">
+      <Link to={role === "admin" ? "/profile" : "/client"}>
         <div className="clients">
           <p>Home</p>
           <HomeIcon />
