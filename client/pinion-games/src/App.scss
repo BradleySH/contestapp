@@ -180,19 +180,23 @@
   height: 160px;
   font-size: 64px;
   display: flex;
-  padding-left: 10px;
+  justify-content: space-around;
+  align-items: center;
+  background: linear-gradient(90deg, rgb(190, 190, 190), #1c3557 45%);
   .circle {
     height: 130px;
     width: 130px;
     border-radius: 50%;
-    background-color: #1c3557;
+    background-color: gray;
   }
   p {
     font-size: 64px;
+    color: white;
   }
 
   span {
     font-size: 24px;
+    color: white;
   }
 }
 
@@ -203,6 +207,7 @@
     grid-template-rows: 1fr 1fr 1fr;
 
     .user {
+      padding-top: 10px;
       padding-left: 10px;
       grid-column: 1/2;
       grid-row: 1/4;
@@ -216,10 +221,17 @@
       }
     }
     .cash {
+      padding-top: 10px;
       grid-column: 2/3;
       grid-row: 1/2;
       display: flex;
-      background-color: gray;
+
+      p {
+        background-color: rgb(209, 209, 209);
+        padding: 7px;
+        border-radius: 5px;
+        font-weight: 700;
+      }
     }
   }
   .team-title {
@@ -295,7 +307,6 @@
 .navbar {
   height: 102px;
   width: 100vw;
-  position: -webkit-sticky;
   display: flex;
   flex-direction: row;
   background-color: #1c3557;
@@ -304,6 +315,16 @@
   color: white;
   text-decoration: none;
   list-style: none;
+  z-index: 99;
+
+  .events,
+  .clients,
+  .contests {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
 
   a {
     text-decoration: none;
@@ -313,21 +334,87 @@
   }
 }
 
+.team-standing {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
 .team-info {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  .graph {
-    background-color: #1c3557;
-    height: 300px;
-    width: 300px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
-    h1 {
-      color: white;
+  .graph {
+    margin-top: 75px;
+    justify-content: center;
+    align-items: flex-end;
+    display: inline-flex;
+
+    .second {
+      height: 111px;
+      width: 90px;
+      background-color: #a9dadc;
+
+      .two {
+        padding: 3px;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+
+        p {
+          font-size: 15px;
+        }
+      }
+    }
+
+    .first {
+      height: 150px;
+      width: 90px;
+      background-color: #457d9f;
+
+      .one {
+        padding: 3px;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+
+        p {
+          font-size: 15px;
+          color: white;
+        }
+      }
+    }
+
+    .third {
+      height: 73px;
+      width: 90px;
+      background-color: #1c3557;
+
+      .three {
+        padding: 3px;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+
+        p {
+          color: white;
+          font-size: 15px;
+        }
+      }
     }
   }
   .team-ranking {
@@ -338,37 +425,86 @@
     padding: 25px;
 
     .team1 {
-      height: 40px;
-      width: 40px;
-      background-color: gray;
-      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       grid-column: 1/2;
       grid-row: 1/2;
+      padding: 10px;
+
+      .avatar {
+        height: 40px;
+        width: 40px;
+        background-color: gray;
+        border-radius: 50%;
+      }
     }
     .team2 {
-      height: 40px;
-      width: 40px;
-      background-color: gray;
-      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       grid-column: 2/3;
       grid-row: 1/2;
+      padding: 10px;
+
+      .avatar {
+        height: 40px;
+        width: 40px;
+        background-color: gray;
+        border-radius: 50%;
+      }
     }
     .team3 {
-      height: 40px;
-      width: 40px;
-      background-color: gray;
-      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       grid-column: 3/4;
       grid-row: 1/2;
+      padding: 10px;
+
+      .avatar {
+        height: 40px;
+        width: 40px;
+        background-color: gray;
+        border-radius: 50%;
+      }
     }
     .team4 {
-      height: 40px;
-      width: 40px;
-      background-color: gray;
-      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       grid-column: 4/5;
       grid-row: 1/2;
+      padding: 10px;
+
+      .avatar {
+        height: 40px;
+        width: 40px;
+        background-color: gray;
+        border-radius: 50%;
+      }
     }
+  }
+}
+
+.btn-logout {
+  height: 40px;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .logout {
+    height: 30px;
+    width: 70px;
+    border: none;
+    background-color: #1c3557;
+    color: white;
+    border-radius: 30px;
   }
 }
 
@@ -378,20 +514,20 @@
 
 .action-tool {
   position: relative;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   width: 211px;
   height: 121px;
   display: grid;
   direction: column;
-  .close{
-    color: #A9DADC;
+  .close {
+    color: #a9dadc;
     background: none;
   }
-  .delete{
+  .delete {
     display: flex;
     justify-self: end;
   }
-  .edit{
+  .edit {
     display: flex;
     justify-self: end;
   }
