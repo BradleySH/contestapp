@@ -33,15 +33,24 @@ const AdminClient = () => {
     const [users, setUsers] = useState([])
     const [teams, setTeams] = useState([])
     const [toggle, setToggle] = useState(false)
+    const [termClient, setTermClient] = useState([])
 
     const initEditInputs = {name: client.name, access: client.access, commissioner: client.commissioner}
     const [editInputs, setEditInputs] = useState(initEditInputs)
     const [editToggle, setEditToggle] = useState(false)
     const [searchQuery, setSearchQuery] = useState('')
 
+    
+
     function deleteClient(_id){
+        const result = window.confirm("Are you sure you want to delete?");
         userAxios.delete(`/api/client/${client._id}`)
-          .then(res => console.log(res))
+          .then(res => {
+              if(result){
+                setTermClient(prevTermClients => prevTermClients.filter(client => client._id !== _id))
+              }
+                  
+          })
           .catch(err => console.log(err))
     }
 
@@ -148,7 +157,7 @@ const AdminClient = () => {
                 <CancelIcon onClick={handleToggle}/>
             </div>
             <div className="delete">
-                <DeleteIcon onClick={() => console.log('Delete')} />
+                <DeleteIcon onClick={deleteClient} />
                 <p>Delete Client</p>
             </div>
             <div className="edit" onClick={() => handleEditToggle()}>
