@@ -1,17 +1,24 @@
+import { useState } from "react"
 import { Link } from "react-router-dom"
 
 const MemberTag = (props) => {
 
-    const {name, avatar, member, set} = props
+    const {name, avatar, member, role, set} = props
 
+    const [toggle, setToggle] = useState(false)
+
+    function handleToggle(){
+        setToggle(prevToggle => !prevToggle)
+    }
+    
     if(set === 'undefined'){
        return set = console.log('Nothing was assigned to props.set in MemberTag')
     }
 
-    console.log(avatar)
+    console.log('render')
 
     return (
-        <div style={{border: '1px solid black', padding: '20px'}} onClick={() => set()}>
+        <div onClick={() => handleToggle()} style={{border: `2px solid ${role === 'commissioner' ? 'green' : 'black'}`, padding: '20px'}} onClick={() => set()}>
             <Link to={{
                 pathname: '/member',
                 state: {

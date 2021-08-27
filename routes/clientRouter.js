@@ -1,5 +1,6 @@
 const express = require('express')
 const Client = require('../models/client')
+const User = require('../models/user')
 
 const clientRouter = express.Router()
 
@@ -29,6 +30,19 @@ clientRouter.route('/')
                 res.status(404)
                 return next(new Error('Admin Privilege only'))
             }
+            if(savedClient.commissioner){
+                User.findOneAndUpdate(
+                    { _id: savedClient.commissioner},
+                    { role: 'commissioner'},
+                    { new: true },
+                    (err, updatedUser) => {
+                        if(err){
+                            res.status(500)
+                            return next(err)
+                        }
+                        return res.status(201).send(`${updatedUser.firstName} ${updatedUser.lastName} has been set as the commissioner of ${savedClient.name}`)
+                    }
+                )}
             return res.status(201).send(savedClient)
         })
     })
@@ -58,22 +72,55 @@ clientRouter.route('/:clientID')
         })
     })
     .put((req, res, next) => {
-        Client.findOneAndUpdate(
-            {_id: req.params.clientID},
-            req.body,
-            {new: true},
-            (err, updatedClient) => {
-                if(err){
-                    res.status(500)
-                    return next(err)
-                }
-                if(req.user.role !== 'admin'){
-                    res.status(404)
-                    return next(new Error('Admin Privilege only'))
-                }
-                return res.status(201).send(updatedClient)
+        Client.findOne( {_id: req.params.clientID}, (err, client) => {
+            if(err){
+                res.status(500)
+                return next(err)
             }
-        )
+            if(req.user.role !== 'admin'){
+                res.status(404)
+                return next(new Error('Admin Privilege only'))
+            }
+            if(client.commissioner){
+                User.findOneAndUpdate(
+                    { _id: client.commissioner},
+                    { role: 'general'},
+                    { new: true },
+                    (err, user) => {
+                        if(err){
+                            res.status(500)
+                            return next(err)
+                        }
+                        console.log(`${user.firstName} ${user.lastName} has been set as a general user of ${client.name}`)
+                    }
+                )
+            }
+            Client.findOneAndUpdate(
+                {_id: req.params.clientID},
+                req.body,
+                {new: true},
+                (err, updatedClient) => {
+                    if(err){
+                        res.status(500)
+                        return next(err)
+                    }
+                    if(updatedClient.commissioner){
+                        User.findOneAndUpdate(
+                            { _id: updatedClient.commissioner},
+                            { role: 'commissioner'},
+                            { new: true },
+                            (err, updatedUser) => {
+                                if(err){
+                                    res.status(500)
+                                    return next(err)
+                                }
+                                console.log(`${updatedUser.firstName} ${updatedUser.lastName} has been set as the commissioner of ${updatedClient.name}`)
+                            }
+                        )
+                    }
+                }
+            )
+        })
     })
 
 

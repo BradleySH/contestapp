@@ -1,13 +1,15 @@
-import { UserContext } from "../context/UserProvider";
+import { UserContext} from "../context/UserProvider";
 import React, {useState, useContext} from "react";
+import { Redirect } from "react-router";
 import AdminForm from "../components/AdminAuthForm";
 
 const initInputs = { email: "", password: ""}
 
 const AdminAuth = () => {
   const [inputs, setInputs] = useState(initInputs);
+  const [isAdmin, setIsAdmin] = useState(true)
 
-  const { login } = useContext(UserContext);
+  const { login, errMsg, resetAuthError } = useContext(UserContext);
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -22,6 +24,11 @@ const AdminAuth = () => {
     login(inputs)
   };
 
+  function toggleForm(){
+    resetAuthError()
+    setIsAdmin(prevIsAdmin => !prevIsAdmin)
+  }
+
   return (
     <div className="admin-container">
       <h1>ADMiN LOGiN</h1>
@@ -29,8 +36,10 @@ const AdminAuth = () => {
         handleChange={handleChange}
         handleSubmit={handleLogin}
         inputs={inputs}
+        errMsg={errMsg}
         btnText="Login"
        />
+       {isAdmin ? <p onClick={toggleForm}>Not an Admin?</p> : <Redirect to='/' />}
     </div>
   )
 };

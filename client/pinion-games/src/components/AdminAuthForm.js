@@ -2,6 +2,7 @@ const AuthForm = (props) => {
   const {
     handleChange,
     handleSubmit,
+    errMsg,
     inputs: {
 
       email,
@@ -31,6 +32,7 @@ const AuthForm = (props) => {
         required
       />
       <button>Login</button>
+      {errMsg ? <p style={{color: 'red'}}>{errMsg}</p> : null}
     </form>
   )
 };

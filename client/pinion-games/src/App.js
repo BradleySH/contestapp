@@ -7,6 +7,7 @@ import GeneralAuth from "./pages/GeneralAuth"
 import AdminAuth from "./pages/AdminAuth"
 import ProtectedRoute from "./components/ProtectedRoute"
 import Profile from "./pages/Profile"
+import AdminClient from "./pages/AdminClient"
 import Client from "./pages/Client"
 import CreateClient from "./pages/CreateClient"
 import Team from "./pages/Team"
@@ -25,8 +26,10 @@ function App() {
         <Route
           exact path='/'
           render={() => {
-            if(token && role === 'general'){
-              return <Redirect to='/profile' />
+            if(token){
+              if(role === 'general' || 'commissioner'){
+                return <Redirect to='/profile' />
+              }
             }
             else {
               return <GeneralAuth />
@@ -48,6 +51,12 @@ function App() {
         <ProtectedRoute
           path='/profile'
           component={Profile}
+          redirectTo='/'
+          token={token}
+        />
+        <ProtectedRoute
+          path='/adminclient'
+          component={AdminClient}
           redirectTo='/'
           token={token}
         />
