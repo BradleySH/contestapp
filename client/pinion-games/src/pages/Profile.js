@@ -12,6 +12,7 @@ const Profile = () => {
         <>
         {
             role === 'general' ? <User/> 
+            : role === 'commissioner' ? <User />
             : role === 'admin' ? <Admin /> 
             : <h1>Please Contact Support</h1>
         }

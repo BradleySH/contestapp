@@ -1,15 +1,16 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import axios from 'axios'
-import { useLocation, Redirect } from 'react-router' // wont let me use Redirect either could be some other issue blocking it.
+import { useLocation } from 'react-router';
 import { useContext } from 'react';
 import { UserContext } from '../context/UserProvider';
 
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import TeamTag from '../components/TeamTag'
-import TeamForm from '../components/TeamForm'
+import "../App.scss"
 import "../client.scss"
 import Header from "../components/Header";
+import SubHeader from '../components/SubHeader'
+import FooterNavbar from "../components/FooterNavbar";
 
 const userAxios = axios.create()
 userAxios.interceptors.request.use(config => {
@@ -59,10 +60,7 @@ const Client = () => {
     return (
         <>
         <Header />
-        <div className="client-header">
-            <p><ArrowBackIosIcon onClick={() => <Redirect to={"/admin"} />}/> {clientInfo.name}</p>
-            <h2>TEAMS</h2>
-        </div>
+        <SubHeader header1={clientInfo.name} header2={'TEAMS'}/>
         <div className="comm-container">
             <p>
                 Commissioner: {commissioner.firstName === undefined ? 'No commissioner assigned' : `${commissioner.firstName} ${commissioner.lastName}`}
@@ -71,7 +69,7 @@ const Client = () => {
                 {teams.map(team => <TeamTag 
                                         key={team._id} 
                                         team={team} 
-                                        client={client.name} 
+                                        client={clientInfo} 
                                         name={team.name} 
                                         avatar={team.avatar} 
                                     />
@@ -120,6 +118,7 @@ const Client = () => {
                 
             }
             </div>
+            <FooterNavbar />
         </div>
         </>
     )

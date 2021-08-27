@@ -3,6 +3,7 @@ const AuthLogin = (props) => {
     handleChange,
     handleSubmit,
     btnText,
+    errMsg,
     inputs: {
       email,
       password
@@ -31,6 +32,7 @@ const AuthLogin = (props) => {
         required
       />
       <button>{ btnText }</button>
+      {errMsg ? <p style={{color: 'red'}}>{errMsg}</p> : null}
     </form>
   )
 };

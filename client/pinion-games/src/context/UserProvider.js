@@ -6,7 +6,8 @@ export const UserContext = React.createContext()
 const UserProvider = (props) => {
   const initState = {
     user: JSON.parse(localStorage.getItem("user")) || {}, 
-    token: localStorage.getItem("token") || ""
+    token: localStorage.getItem("token") || "",
+    errMsg: ''
   }
   const [userState, setUserState] = useState(initState);
 
@@ -22,7 +23,7 @@ const UserProvider = (props) => {
         token
       }))
     })
-    .catch(err => console.log(err.response.data.errMsg))
+    .catch(err => handleAuthError(err.response.data.errMsg))
   }
   
   const login = (credentials) => {
@@ -37,23 +38,39 @@ const UserProvider = (props) => {
         token
     }))
   })
-    .catch(err => console.log(err.response.data.errMsge))
+    .catch(err => handleAuthError(err.response.data.errMsg))
   }
 
-const logout = () => {
-  localStorage.removeItem("token")
-  localStorage.removeItem("user")
-  setUserState({
-    user: {},
-    token: ""
-  })
+  const logout = () => {
+    localStorage.removeItem("token")
+    localStorage.removeItem("user")
+    setUserState({
+      user: {},
+      token: ""
+    })
+  }
+
+  const handleAuthError = (errMsg) => {
+    setUserState(prevUserState => ({
+        ...prevUserState,
+        errMsg
+    }))
 }
+
+  const resetAuthError = () => {
+    setUserState(prevUserState => ({
+        ...prevUserState,
+        errMsg: ''
+    }))
+  }
   return (
     <UserContext.Provider value={{
       ...userState,
       signup,
       login,
-      logout
+      logout,
+      resetAuthError,
+
     }}>
       {props.children}
     </UserContext.Provider>
