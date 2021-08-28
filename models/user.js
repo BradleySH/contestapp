@@ -46,7 +46,8 @@ const userSchema = new Schema({
   },
   team: {
     type: Schema.Types.ObjectId,
-    ref:"Team"
+    ref:"Team",
+    default: null
   }
 });
 

@@ -1,20 +1,62 @@
-import React, {useContext} from "react"
+import React, {useState, useContext, useEffect} from "react"
+import axios from 'axios'
+import {UserContext} from "../context/UserProvider";
+
+import Header from './Header';
+import FooterNavbar from "./FooterNavbar";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import StarsIcon from '@material-ui/icons/Stars';
-import Header from './Header';
-import {UserContext} from "../context/UserProvider";
-import FooterNavbar from "./FooterNavbar";
 
+
+const userAxios = axios.create()
+userAxios.interceptors.request.use(config => {
+    const token = localStorage.getItem("token")
+    config.headers.Authorization = `Bearer ${token}`
+    return config
+})
 
 const UserProfile = () => {
-  const { user: { firstName, avatar }, logout} = useContext(UserContext)
+  const { user: { firstName, avatar, team, client }, logout} = useContext(UserContext)
+
+  const [teamInfo, setTeamInfo] = useState({})
+  const [teamMembers, setTeamMembers] = useState([])
+  const [teams, setTeams] = useState([])
+  
+  function getTeamInfo(){
+    userAxios.get(`/api/team/${team}`)
+      .then(res => setTeamInfo(res.data))
+      .catch(err => console.log(err))
+  }
+
+  function getTeamMembers(){
+    userAxios.get(`/api/user/team/${team}`)
+      .then(res => setTeamMembers(res.data))
+      .catch(err => console.log(err))
+  }
+
+    // Grabs Teams for Client
+    function getTeams(){
+      userAxios.get(`/api/team/client/${client}`)
+          .then(res => {
+              setTeams(res.data)
+          })
+          .catch(err => console.log(err))
+  }
+
+  useEffect(() => {
+    getTeamInfo()
+    getTeamMembers()
+    getTeams()
+  }, [])
+
+  console.log(typeof teamInfo.avatar)
   return (
     <>
     <Header />
     <div className="team-name">
-      <p><span>Team</span> Name</p>
-      <div className="circle"></div>
+      <p><span>Team</span> {teamInfo.name}</p>
+      <div style={{backgroundImage: `url(${teamInfo.avatar})`, backgroundSize: 'cover'}} className="circle"></div>
     </div>
     <div className="user">
       <div className="stats">
@@ -25,13 +67,13 @@ const UserProfile = () => {
       </div>
         <div className="cash">
             <AttachMoneyIcon />
-            <p>$1500.00</p>
+            <p>${teamInfo.currency}</p>
         </div>
         <div className="points">
-            <p>Total Points: 100</p>
+            <p>Total Points: {teamInfo.points}</p>
         </div>
         <div className="standing">
-            <p>1st</p>
+            <p>*1st</p>
         </div>
         </div>
         

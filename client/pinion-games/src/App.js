@@ -12,6 +12,7 @@ import Client from "./pages/Client"
 import CreateClient from "./pages/CreateClient"
 import Team from "./pages/Team"
 import CreateTeam from "./pages/CreateTeam"
+import AddTeamMember from "./pages/AddTeamMember"
 
 function App() {
   const {
@@ -81,6 +82,12 @@ function App() {
         <ProtectedRoute
           path='/createteam'
           component={CreateTeam}
+          redirectTo='/'
+          token={token}
+        />
+        <ProtectedRoute
+          path='/addteammember'
+          component={AddTeamMember}
           redirectTo='/'
           token={token}
         />

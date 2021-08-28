@@ -15,12 +15,6 @@ const teamSchema = new Schema({
             ref: 'User',
             default: null
     },
-    members: [{
-                type: Schema.Types.ObjectId,
-                ref: 'User',
-                required: true
-            }
-    ],
     client: {
         type: Schema.Types.ObjectId,
         ref: 'Client',

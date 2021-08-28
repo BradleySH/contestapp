@@ -38,7 +38,28 @@ teamRouter.route('/:teamID/member')
     })
 
 teamRouter.route('/:teamID')
+    .get((req, res, next) => {
+        Team.findOne( { _id: req.params.teamID }, (err, team) => {
+            if(err){
+                res.status(500)
+                return next(err)
+            }
+            return res.status(200).send(team)
+        } )
+    })
     .delete((req, res, next) => {
+        User.updateMany( 
+            { team: req.params.teamID },
+            { team: null },
+            { new: true },
+            (err, updatedUsers) => {
+                if(err){
+                    res.status(500)
+                    return next(err)
+                }
+                console.log("Team members are now free agents")
+            }
+        )
         Team.findOneAndDelete( { _id: req.params.teamID}, (err, team) => {
             if(err){
                 res.status(500)
@@ -47,12 +68,18 @@ teamRouter.route('/:teamID')
         })
     })
     .put((req, res, next) => {
-        Team.findOneAndUpdate( { _id: req.params.teamID }, (err, team) => {
-            if(err){
-                res.status(500)
-                return next(err)
+        Team.findOneAndUpdate( 
+            { _id: req.params.teamID },
+            req.body,
+            { new: true },
+            (err, updatedTeam) => {
+                if(err){
+                    res.status(500)
+                    return next(err)
+                }
+                return res.status(201).send(updatedTeam)
             }
-        })
+        )
     })
 
 module.exports = teamRouter
