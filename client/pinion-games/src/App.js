@@ -13,6 +13,8 @@ import CreateClient from "./pages/CreateClient"
 import Team from "./pages/Team"
 import CreateTeam from "./pages/CreateTeam"
 import AddTeamMember from "./pages/AddTeamMember"
+import Header from "./components/Header"
+import FooterNavbar from "./components/FooterNavbar"
 
 function App() {
   const {
@@ -23,6 +25,7 @@ function App() {
   } = useContext(UserContext)
   return (
     <div className="App">
+      <Header />
       <Switch>
         <Route
           exact path='/'
@@ -92,6 +95,7 @@ function App() {
           token={token}
         />
       </Switch>
+      <FooterNavbar />
     </div>
   )
 }

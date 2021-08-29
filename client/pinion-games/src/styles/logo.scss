@@ -1,0 +1,41 @@
+.logo-container {
+  display: flex;
+  flex-direction: column;
+  padding-top: 40px;
+
+  .logo {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    position: relative;
+
+    .small-gear {
+      position: absolute;
+      left: 135px;
+      top: 50px;
+    }
+
+    .big-gear {
+      position: absolute;
+      right: 127px;
+      top: 44px;
+    }
+  }
+
+  .title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    p {
+      color: #183457;
+      font-size: 13px;
+      letter-spacing: 5px;
+
+      span {
+        color: #a8dbdd;
+        font-size: 13px;
+        letter-spacing: 5px;
+      }
+    }
+  }
+}

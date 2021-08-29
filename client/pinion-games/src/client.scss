@@ -5,14 +5,31 @@
 
   .admin-header {
     display: flex;
-    justify-content: center;
+    justify-content: inherit;
     align-items: center;
     height: 148px;
     width: 100vw;
-    background-color: #1c3557;
+    background: linear-gradient(to right, #acacac, #1c3557 50%);
+    position: relative;
+
+    .gear {
+      color: #c7c7c783;
+      z-index: 0;
+      height: 90px;
+      width: 90px;
+      position: relative;
+      left: 40px;
+      padding: 0;
+      margin: 0;
+    }
+
     h1 {
+      position: relative;
       color: white;
       font-size: 36px;
+      z-index: 1;
+      letter-spacing: 5px;
+      padding-left: 65px;
     }
   }
   .client-grid {
@@ -21,9 +38,12 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    padding-top: 30px;
   }
   .client-tag {
-    margin: 37px 29px;
+    margin: 30px 20px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -34,6 +54,8 @@
     color: white;
     background-color: #1c3557;
     text-align: center;
+    grid-column: auto;
+    grid-row: auto;
   }
 
   .form-container {

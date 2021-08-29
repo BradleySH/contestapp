@@ -1,3 +1,5 @@
+import "../styles/clientForm.scss"
+
 export default function Search({searchQuery, setSearchQuery}){
     return (
         <form onSubmit={e => e.preventDefault()}>

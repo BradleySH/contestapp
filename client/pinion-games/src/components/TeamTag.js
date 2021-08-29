@@ -7,8 +7,8 @@ const TeamTag = (props) => {
     const {name, avatar, team, client} = props
 
     return (
-        <div style={{display: 'inline-block'}}>
-        <h2 style={{textAlign: 'center'}}>{name}</h2>
+        <div className="teamtag-container">
+        <h2 className="teamName">{name}</h2>
             <Link className='tag' to={{
                 pathname: '/team',
                 state: {

@@ -1,0 +1,42 @@
+.create-team-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+
+  .teamform {
+    height: 250px;
+    width: 200px;
+    background-color: lightgray;
+    display: flex;
+    justify-content: first baseline;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 30px;
+
+    label {
+      letter-spacing: 3px;
+      font-size: 18px;
+      color: #1c3557;
+    }
+
+    input {
+      margin: 15px;
+      border: none;
+      height: 30px;
+      border-radius: 30px;
+    }
+
+    .formbtn {
+      width: 150px;
+      height: 30px;
+      border-radius: 30px;
+      background-color: #1c3557;
+      border: none;
+      color: white;
+      letter-spacing: 3px;
+    }
+  }
+}

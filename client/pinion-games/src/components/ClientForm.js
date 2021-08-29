@@ -65,23 +65,23 @@ const ClientForm = (props) => {
     //   then just set this form container to a button to open the modal.  My brain is shot though.   We could reuse that modal as well in 
     //   other pages like the commisioner page
     return (
-        <fieldset className="form-container">
-            <h2>Create a New Client</h2>
+        <div className="form-container">
             <form className="client-form" onSubmit={(e) => submit(e, inputs)}>
-                <label>Client Name</label>
-                <input onChange={handleChange} type="text" name="name" value={inputs.name} placeholder="Client Name" />
-                <br />
-                <label>Access Code</label>
-                <input onChange={handleChange} type="text" name="access" value={inputs.access} placeholder="Access Code" />
-                <br />
-                <label>Assign a Commissioner</label>
-                <div>
+                <div className="client-name">
+                    <label>Client Name</label>
+                    <input onChange={handleChange} type="text" name="name" value={inputs.name} placeholder="Client Name" />
+                    <label>Access Code</label>
+                    <input onChange={handleChange} type="text" name="access" value={inputs.access} placeholder="Access Code" />
+                </div>
+
+                <label className="assign-comm">Assign a Commissioner</label>
+                <div className="assign-user">
                     <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
                     {searchQuery.length > 0 ? handleSearch() : null}
                 </div>
-                <button>Next</button>
+                <button className="nextbtn">Next</button>
             </form>
-        </fieldset>
+        </div>
     )
 }
 

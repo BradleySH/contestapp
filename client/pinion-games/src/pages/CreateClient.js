@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
-import "../client.scss"
+import "../styles/clientForm.scss"
+
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import axios from 'axios'
 
@@ -29,13 +30,11 @@ const CreateClient = () => {
 
     return(
         <div>
-            <Header />
             <div className="client-header">
-                <p><Link to='/profile'><ArrowBackIosIcon onClick={() => <Redirect to={"/admin"} />} /></Link> Create a New</p>
-                <h2>Client</h2>
+                <p><Link to='/profile'><ArrowBackIosIcon onClick={() => <Redirect to={"/admin"} />} /></Link> CREATE A NEW</p>
+                <h2>CLiENT</h2>
             </div>
             <ClientForm submit={createClient} />
-            <FooterNavbar />
         </div>
     )
 }

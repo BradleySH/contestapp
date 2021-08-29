@@ -178,7 +178,6 @@ const Team = () => {
 
     return (
         <>
-            <Header />
             <SubHeader header1={client.name} header2={team.name}/>
             {hasPermission()}
             {editToggle ? handleEdit() : null}
@@ -234,7 +233,6 @@ const Team = () => {
                 :
                 null
             }
-            <FooterNavbar />
         </>
     )
 }

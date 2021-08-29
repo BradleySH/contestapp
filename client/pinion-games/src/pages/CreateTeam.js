@@ -30,10 +30,8 @@ const CreateTeam = () => {
 
     return (
         <>
-            <Header />
             <SubHeader header1={'CREATE A NEW'} header2={'TEAM'}/>
-            <TeamForm submit={createTeam} />
-            <FooterNavbar />
+            <TeamForm submit={createTeam} style={{ height: "100%", width: "100vw"}} />
         </>
     )
 

@@ -59,13 +59,15 @@ const Client = () => {
 
     return (
         <>
-        <Header />
         <SubHeader header1={clientInfo.name} header2={'TEAMS'}/>
         <div className="comm-container">
-            <p>
-                Commissioner: {commissioner.firstName === undefined ? 'No commissioner assigned' : `${commissioner.firstName} ${commissioner.lastName}`}
-            </p>
-            <div style={{margin: '16px'}}>
+            <div>
+                <p>
+                    Commissioner: {commissioner.firstName === undefined ? 'No commissioner assigned' : `${commissioner.firstName} ${commissioner.lastName}`}
+                </p>
+            </div>
+            
+            <div className="team-list" style={{margin: '16px'}}>
                 {teams.map(team => <TeamTag 
                                         key={team._id} 
                                         team={team} 
@@ -76,41 +78,13 @@ const Client = () => {
                 )}
                 {role === 'admin' ? 
                     
-                <Link to='/createteam' 
-                    style={{
-                        borderRadius: '50%', 
-                        boxShadow: '0 0 10px blue', 
-                        backgroundColor: 'grey',
-                        color: 'white', 
-                        display: 'grid', 
-                        fontSize: '24px', 
-                        height: '145px',
-                        margin: '16px', 
-                        placeItems: 'center', 
-                        textAlign: 'center', 
-                        textDecoration: 'none',
-                        width: '145px',
-                    }}>
+                <Link to='/createteam'>
                 + NEW TEAM
                 </Link>
                 :
                 role === 'commissioner' ? 
                     
-                <Link to={{pathname: '/createteam', state: {clientInfo}}}
-                    style={{
-                        borderRadius: '50%', 
-                        boxShadow: '0 0 10px blue', 
-                        backgroundColor: 'grey',
-                        color: 'white', 
-                        display: 'grid', 
-                        fontSize: '24px', 
-                        height: '145px',
-                        margin: '16px', 
-                        placeItems: 'center', 
-                        textAlign: 'center', 
-                        textDecoration: 'none',
-                        width: '145px',
-                    }}>
+                <Link to={{pathname: '/createteam', state: {clientInfo}}}>
                 + NEW TEAM
                 </Link>
                 :
@@ -118,7 +92,6 @@ const Client = () => {
                 
             }
             </div>
-            <FooterNavbar />
         </div>
         </>
     )
