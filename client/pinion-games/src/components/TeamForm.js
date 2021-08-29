@@ -1,4 +1,6 @@
 import {useState} from 'react'
+import "../styles/teamForm.scss"
+import FooterNavbar from './FooterNavbar'
 
 const TeamForm = (props) => {
 
@@ -14,12 +16,15 @@ const TeamForm = (props) => {
     }
 
     return (
-        <form onSubmit={(e) => submit(e, inputs)}>
-            <label>Create Team</label>
-            <input type='text' onChange={handleChange} name='name' value={inputs.name} placeholder='Team Name' />
-            <input type='text' onChange={handleChange} name='avatar' value={inputs.avatar} placeholder='Avatar/Image' />
-            <button>Submit</button>
-        </form>
+        <div className="create-team-container">
+            <form className="teamform" onSubmit={(e) => submit(e, inputs)}>
+                <label>Create Team</label>
+                <input type='text' onChange={handleChange} name='name' value={inputs.name} placeholder='Team Name' />
+                <input type='text' onChange={handleChange} name='avatar' value={inputs.avatar} placeholder='Avatar/Image' />
+                <button className="formbtn">Submit</button>
+            </form>
+        </div>
+        
     )
 }
 

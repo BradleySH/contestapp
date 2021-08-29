@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import axios from "axios"
+import SettingsIcon from '@material-ui/icons/Settings';
 
-import Header from "./Header"
+
 import ClientTag from "./ClientTag"
 
 const userAxios = axios.create()
@@ -49,14 +50,14 @@ const Admin = () => {
 
   return (
     <>
-    <Header />
     <div className="admin-client">
       <div className="admin-header">
         <h1>ADMiN</h1>
+        <SettingsIcon className="gear" />
       </div>
       <div className="client-grid">
         {clients.map(client => <ClientTag key={client._id} client={client} _id={client._id} name={client.name} commissioner={client.commissioner}/>)}
-        <Link to='/createclient' style={{width: '145px', height: '145px', borderRadius: '50%', boxShadow: '0 0 10px blue', display: 'grid', placeItems: 'center', color: '#1c3557', fontSize: '24px', textAlign: 'center', textDecoration: 'none'}}>
+        <Link to='/createclient' className="add-client" style={{width: '145px', height: '145px', borderRadius: '50%', boxShadow: '0 0 10px #183457', display: 'grid', placeItems: 'center', color: '#1c3557', fontSize: '24px', textAlign: 'center', textDecoration: 'none'}}>
         + NEW CLiENT
         </Link>
       </div>

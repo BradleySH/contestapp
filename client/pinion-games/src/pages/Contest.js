@@ -4,8 +4,7 @@ import FooterNavbar from "../components/FooterNavbar";
 const Contest = () => {
     return(
         <>
-            <Header />
-            <FooterNavbar />
+
         </>
     )
 }
