@@ -2,8 +2,6 @@ import React, {useState, useContext, useEffect} from "react"
 import axios from 'axios'
 import {UserContext} from "../context/UserProvider";
 
-import Header from './Header';
-import FooterNavbar from "./FooterNavbar";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import StarsIcon from '@material-ui/icons/Stars';
@@ -54,7 +52,6 @@ const UserProfile = () => {
   console.log(typeof teamInfo.avatar)
   return (
     <>
-    <Header />
     <div className="team-name">
       <p><span>Team</span> {teamInfo.name}</p>
       <div style={{backgroundImage: `url(${teamInfo.avatar})`, backgroundSize: 'cover'}} className="circle"></div>
@@ -166,7 +163,6 @@ const UserProfile = () => {
     <div className="btn-logout">
       <button className="logout" onClick={logout}>Logout</button>
     </div>
-    <FooterNavbar />
     </>
   )
 }

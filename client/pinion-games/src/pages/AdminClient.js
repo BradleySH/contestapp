@@ -148,7 +148,7 @@ const AdminClient = () => {
 
         return (
             <div>
-                {filteredUsers.map(user => <MemberTag name={`${user.firstName} ${user.lastName}`} role={user.role} avatar={user.avatar} set={() => setNewCommissioner(user._id)} />)}
+                {filteredUsers.map(user => <MemberTag key={user._id} _id={user._id} name={`${user.firstName} ${user.lastName}`} color={user.role === "commissioner" ? "green" : "white"} role={user.role} avatar={user.avatar} set={() => setNewCommissioner(user._id)} />)}
             </div>
         )
     }
@@ -189,7 +189,7 @@ const AdminClient = () => {
     return (
         <>
         {render ? null : getTeams()}
-        <SubHeader header1={client.name} header2={'TEAMS'}/>
+        <SubHeader renderArrow={true} header1={client.name} header2={'TEAMS'}/>
         {!actionToggle ? <MoreHorizIcon fontSize={'large'} onClick={handleActionToggle} /> :         
         <div className="action-tool" style={{border: '2px solid black'}}>
             <div className="close">

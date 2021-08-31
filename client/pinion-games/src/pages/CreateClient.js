@@ -18,7 +18,6 @@ const CreateClient = () => {
 
     const [didSubmit, setDidSubmit] = useState(false)
 
-
     function createClient(e, inputs){
         e.preventDefault()
         setDidSubmit(true)

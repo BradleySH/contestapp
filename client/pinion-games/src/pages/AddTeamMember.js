@@ -4,6 +4,7 @@ import axios from 'axios'
 
 import Search from "../components/Search";
 import MemberTag from "../components/MemberTag";
+import SubHeader from "../components/SubHeader";
 
 const userAxios = axios.create()
 userAxios.interceptors.request.use(config => {
@@ -102,6 +103,7 @@ export default function AddTeamMember(){
 
     return (
         <>
+        <SubHeader renderArrow={true} header1={"ADD A NEW TEAM MEMBER"} header2={team.name} />
         { didSubmit ? <Redirect to={{
                 pathname: "/team",
                 state: {

@@ -51,12 +51,12 @@ const Client = () => {
         
         getClient()
         getTeams()
-
-    })
+        // eslint-disable-next-line
+    }, [])
 
     return (
         <>
-        <SubHeader header1={clientInfo.name} header2={'TEAMS'}/>
+        <SubHeader renderArrow={false} header1={clientInfo.name} header2={'TEAMS'}/>
         <div className="comm-container">
             <div>
                 <p>

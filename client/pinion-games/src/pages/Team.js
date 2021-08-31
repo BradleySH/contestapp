@@ -175,7 +175,7 @@ const Team = () => {
     return (
         <>
             
-            <SubHeader header1={client.name} header2={team.name}/>
+            <SubHeader renderArrow={true} header1={client.name} header2={team.name}/>
             {hasPermission()}
             {editToggle ? handleEdit() : null}
             {deleteToggle ? handleDelete() : null}

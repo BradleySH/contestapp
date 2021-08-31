@@ -17,6 +17,8 @@ import Header from "./components/Header"
 import FooterNavbar from "./components/FooterNavbar"
 import Events from "./pages/Events"
 import Contests from "./pages/Contests"
+import CreateEvent from "./pages/CreateEvent"
+import Event from "./pages/Event"
 
 function App() {
   const {
@@ -109,6 +111,18 @@ function App() {
           <ProtectedRoute
             path='/contests'
             component={Contests}
+            redirectTo='/'
+            token={token}
+          />
+          <ProtectedRoute
+            path='/createevent'
+            component={CreateEvent}
+            redirectTo='/'
+            token={token}
+          />
+          <ProtectedRoute
+            path='/event'
+            component={Event}
             redirectTo='/'
             token={token}
           />

@@ -38,7 +38,7 @@ const CreateTeam = () => {
                     client
                 }
             }} /> : null}
-            <SubHeader header1={'CREATE A NEW'} header2={'TEAM'}/>
+            <SubHeader renderArrow={true} header1={'CREATE A NEW'} header2={'TEAM'}/>
             <TeamForm submit={createTeam} style={{ height: "100%", width: "100vw"}} />
         </>
     )
