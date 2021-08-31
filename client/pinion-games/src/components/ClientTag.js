@@ -1,4 +1,3 @@
-import React, {useState} from "react"
 import { Link } from "react-router-dom";
 import "../client.scss"
 import axios from "axios"
@@ -11,12 +10,6 @@ userAxios.interceptors.request.use(config => {
 })
 
 const ClientTag = (props) => {
-
-    const initState = []  //  state as well taken from Admin.js
-    const [clients, setClients] = useState(initState)
-
-
-
     const {name, client} = props
 
     return (

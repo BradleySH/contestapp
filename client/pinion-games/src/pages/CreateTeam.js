@@ -1,12 +1,10 @@
+import { useState } from 'react'
 import axios from 'axios'
 import { useLocation, Redirect } from 'react-router'
-import { Link } from 'react-router-dom'
 import "../App.scss"
 
-import Header from "../components/Header"
 import SubHeader from '../components/SubHeader'
 import TeamForm from "../components/TeamForm"
-import FooterNavbar from "../components/FooterNavbar";
 
 const userAxios = axios.create()
 userAxios.interceptors.request.use(config => {
@@ -17,11 +15,15 @@ userAxios.interceptors.request.use(config => {
 
 const CreateTeam = () => {
 
+    const [didSubmit, setDidSubmit] = useState(false)
+
     const location = useLocation()
     const {client} = location.state
 
     function createTeam(e, inputs){
         e.preventDefault()
+
+        setDidSubmit(true)
 
         userAxios.post(`/api/team/client/${client._id}`, inputs)
             .then(res => console.log(res.data))
@@ -30,6 +32,12 @@ const CreateTeam = () => {
 
     return (
         <>
+            {didSubmit ? <Redirect to={{
+                pathname: "/adminclient",
+                state: {
+                    client
+                }
+            }} /> : null}
             <SubHeader header1={'CREATE A NEW'} header2={'TEAM'}/>
             <TeamForm submit={createTeam} style={{ height: "100%", width: "100vw"}} />
         </>

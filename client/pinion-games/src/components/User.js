@@ -48,6 +48,7 @@ const UserProfile = () => {
     getTeamInfo()
     getTeamMembers()
     getTeams()
+    // eslint-disable-next-line
   }, [])
 
   console.log(typeof teamInfo.avatar)
@@ -62,7 +63,7 @@ const UserProfile = () => {
       <div className="stats">
         <div className="user-stats">
         <div className="user">
-        <img src={avatar} />
+        <img src={avatar} alt={avatar} />
         <p>Welcome, @{firstName}!</p>
       </div>
         <div className="cash">
@@ -81,7 +82,7 @@ const UserProfile = () => {
         <div className="team-members">
           <div className="coach">
             <StarsIcon style={{ color: "gray", height: "40px", width: "40px"}} />
-            <p>Coach</p>
+            <p>Captain</p>
           </div>
           <div className="member1">
             <AccountCircleIcon style={{ color: "gray",height: "40px", width: "40px"}} />

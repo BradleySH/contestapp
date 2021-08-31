@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import axios from "axios"
-import SettingsIcon from '@material-ui/icons/Settings';
 
-
+import SubHeader from "./SubHeader";
 import ClientTag from "./ClientTag"
 
 const userAxios = axios.create()
@@ -26,24 +25,6 @@ const Admin = () => {
       .catch(err => console.log(err))
   }
 
-  function deleteClient(_id){
-    userAxios.delete(`/api/client/${_id}`)
-      .then(res => console.log(res.data))
-      .catch(err => console.log(err))
-  }
-
-  function editClient(inputs, _id){
-    const clientObj = {
-      name: inputs.name,
-      access: inputs.access,
-      commissioner: inputs.commissioner
-    }
-
-    userAxios.put(`/api/client/${_id}`, clientObj)
-      .then(res => console.log(res.data))
-      .catch(err => console.log(err))
-  }
-  
   useEffect(() => {
     getClients()
   }, [])
@@ -51,10 +32,7 @@ const Admin = () => {
   return (
     <>
     <div className="admin-client">
-      <div className="admin-header">
-        <h1>ADMiN</h1>
-        <SettingsIcon className="gear" />
-      </div>
+      <SubHeader header1={"ADMiN"} color={"white"} imgUrl={"/images/admin.png"}/>
       <div className="client-grid">
         {clients.map(client => <ClientTag key={client._id} client={client} _id={client._id} name={client.name} commissioner={client.commissioner}/>)}
         <Link to='/createclient' className="add-client" style={{width: '145px', height: '145px', borderRadius: '50%', boxShadow: '0 0 10px #183457', display: 'grid', placeItems: 'center', color: '#1c3557', fontSize: '24px', textAlign: 'center', textDecoration: 'none'}}>

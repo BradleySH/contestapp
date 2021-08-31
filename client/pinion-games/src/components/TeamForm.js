@@ -1,6 +1,5 @@
 import {useState} from 'react'
 import "../styles/teamForm.scss"
-import FooterNavbar from './FooterNavbar'
 
 const TeamForm = (props) => {
 

@@ -14,37 +14,40 @@ userAxios.interceptors.request.use(config => {
 
 export default function AddTeamMember(){
 
+    const [didSubmit, setDidSubmit] = useState(false)
+
     const location = useLocation()
     const { team, client} = location.state
     
     const [users, setUsers] = useState([])
     const [searchQuery, setSearchQuery] = useState('')
+    const [searchedMembers, setSearchedMembers] = useState(false)
     const [selectedMembers, setSelectedMembers] = useState([])
 
     function getClientUsers(){
         userAxios(`/api/user/client/${client._id}`)
-            .then(res => {
-                setUsers(res.data)
-            })
+            .then(res => setUsers(res.data))
             .catch(err => console.log(err))
     }
 
     function showCurrentMembers(){
-        users.forEach(user => {
-            if(user.team === team._id){
-                return selectedMembers.push(user._id)
-            } else {
-                return null
-            }
-        })
+        setSearchedMembers(true)
+        const currentUsers = users.filter(user => user.team === team._id)
+        console.log(currentUsers)
+        setSelectedMembers(currentUsers)
     }
 
     function showClientUsers(){
-        return (
-            <div>
-                {users.map(user => <MemberTag key={user._id} _id={user._id} color={selectedMembers.includes(user._id) ? 'green' : 'white'} name={`${user.firstName} ${user.lastName}`} avatar={user.avatar} set={() => selectMember(user._id)} />)}
-            </div>
-        )
+        if(searchedMembers){
+            return (
+                <div>
+                    {users.map(user => <MemberTag key={user._id} _id={user._id} color={selectedMembers.includes(user._id) ? 'green' : 'white'} name={`${user.firstName} ${user.lastName}`} avatar={user.avatar} set={() => selectMember(user._id)} />)}
+                </div>
+            )
+        } else {
+            return null
+        }
+
     }
 
     function selectMember(_id){
@@ -63,6 +66,8 @@ export default function AddTeamMember(){
             members: selectedMembers
         }
 
+        setDidSubmit(true)
+
         userAxios.put(`/api/user/team/${team._id}`, membersToUpdate)
             .then(res => console.log(res))
             .catch(err => console.log(err))
@@ -72,7 +77,7 @@ export default function AddTeamMember(){
     function handleSearch(){
         const filteredUsers = users.filter(user => {
             if(!user.firstName){
-                return
+                return false
             }
             const userName = `${user.firstName.toLowerCase()} ${user.lastName.toLowerCase()}`
             return userName.includes(searchQuery.toLowerCase())
@@ -87,13 +92,28 @@ export default function AddTeamMember(){
 
     useEffect(() => {
         getClientUsers()
+        // eslint-disable-next-line
     }, [])
+
+    useEffect(() => {
+        showCurrentMembers()
+        // eslint-disable-next-line
+    }, [users])
 
     return (
         <>
+        { didSubmit ? <Redirect to={{
+                pathname: "/team",
+                state: {
+                    team: team,
+                    client: client
+                }
+            }} />
+            :
+            null
+        }
         <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
         <button onClick={() => addTeamMembers()} >Submit Team Members</button>
-        {users.length > 0 ? showCurrentMembers() : null}
         {searchQuery.length > 0 ? handleSearch() : showClientUsers()}
         </>
     )

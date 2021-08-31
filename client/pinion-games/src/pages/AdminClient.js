@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import axios from 'axios'
-import { useLocation, Redirect } from 'react-router';
+import { useLocation } from 'react-router';
 
 import "../App.scss"
 import "../client.scss"
@@ -10,12 +10,10 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 
-import Header from "../components/Header";
 import SubHeader from '../components/SubHeader'
 import Search from '../components/Search';
 import MemberTag from '../components/MemberTag';
 import TeamTag from '../components/TeamTag'
-import FooterNavbar from "../components/FooterNavbar";
 
 const userAxios = axios.create()
 userAxios.interceptors.request.use(config => {
@@ -28,6 +26,8 @@ const AdminClient = () => {
 
     const location = useLocation()
     const {client} = location.state
+
+    const [render, setRender] = useState(false)
 
     const [commissioner, setCommissioner] = useState({})
     const [users, setUsers] = useState([])
@@ -140,7 +140,7 @@ const AdminClient = () => {
         
         const filteredUsers = users.filter(user => {
             if(!user.firstName){
-                return
+                return false
             }
             const userName = `${user.firstName.toLowerCase()} ${user.lastName.toLowerCase()}`
             return userName.includes(searchQuery.toLowerCase())
@@ -164,6 +164,7 @@ const AdminClient = () => {
     function getTeams(){
         userAxios.get(`/api/team/client/${client._id}`)
             .then(res => {
+                setRender(true)
                 setTeams(res.data)
             })
             .catch(err => console.log(err))
@@ -182,11 +183,12 @@ const AdminClient = () => {
         getCommissioner()
         getUsers()
         getTeams()
-
+        // eslint-disable-next-line
     }, [])
 
     return (
         <>
+        {render ? null : getTeams()}
         <SubHeader header1={client.name} header2={'TEAMS'}/>
         {!actionToggle ? <MoreHorizIcon fontSize={'large'} onClick={handleActionToggle} /> :         
         <div className="action-tool" style={{border: '2px solid black'}}>

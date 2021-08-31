@@ -43,7 +43,7 @@ const ClientForm = (props) => {
         
         const filteredUsers = users.filter(user => {
             if(!user.firstName){
-                return
+                return false
             }
             const userName = `${user.firstName.toLowerCase()} ${user.lastName.toLowerCase()}`
             return userName.includes(searchQuery.toLowerCase())
