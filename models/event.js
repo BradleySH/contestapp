@@ -14,16 +14,6 @@ const eventSchema = new Schema({
         type: Date,
         required: true
     },
-    teams: [{
-            type: Schema.Types.ObjectId,
-            ref: 'Team'
-        }],
-    challenges: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'Challenge'
-        }
-    ],
     client: {
         type: Schema.Types.ObjectId,
         ref: 'Client',

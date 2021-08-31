@@ -1,16 +1,13 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import axios from 'axios'
-import { useLocation } from 'react-router';
 import { useContext } from 'react';
 import { UserContext } from '../context/UserProvider';
 
 import TeamTag from '../components/TeamTag'
 import "../App.scss"
 import "../client.scss"
-import Header from "../components/Header";
 import SubHeader from '../components/SubHeader'
-import FooterNavbar from "../components/FooterNavbar";
 
 const userAxios = axios.create()
 userAxios.interceptors.request.use(config => {
@@ -54,12 +51,12 @@ const Client = () => {
         
         getClient()
         getTeams()
-
+        // eslint-disable-next-line
     }, [])
 
     return (
         <>
-        <SubHeader header1={clientInfo.name} header2={'TEAMS'}/>
+        <SubHeader renderArrow={false} header1={clientInfo.name} header2={'TEAMS'}/>
         <div className="comm-container">
             <div>
                 <p>

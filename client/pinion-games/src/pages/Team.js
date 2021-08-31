@@ -4,7 +4,6 @@ import { useLocation } from "react-router"
 import { UserContext } from "../context/UserProvider";
 import axios from "axios"
 
-import Header from "../components/Header";
 import SubHeader from "../components/SubHeader";
 import MemberTag from "../components/MemberTag"
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
@@ -12,7 +11,6 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import CancelIcon from '@material-ui/icons/Cancel';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
-import FooterNavbar from "../components/FooterNavbar";
 
 const userAxios = axios.create()
 userAxios.interceptors.request.use(config => {
@@ -25,19 +23,16 @@ const Team = () => {
 
     const location = useLocation()
     const { team, client } = location.state
+    console.log("TEAM", team)
+    console.log("CLIENT", client)
 
     const {user: {role}} = useContext(UserContext)
 
     const [members, setMembers] = useState([])
-    const [coach, setCoach] = useState({})
+    const [captain, setCaptain] = useState({})
     
     // The states below are for the Action Tool(Add Member, Edit, Delete)
-    const [users, setUsers] = useState([])
-    const [searchQuery, setSearchQuery] = useState('')
-
     const [actionToggle, setActionToggle] = useState(false)
-
-    const [addToggle, setAddToggle] = useState(false)
 
     const [editToggle, setEditToggle] = useState(false)
     const initEditInputs = {name: '', avatar: ''}
@@ -164,7 +159,7 @@ const Team = () => {
     }
 
 
-    function getCoach(){
+    function getCaptain(){
         userAxios.get(`/api/user/${team.coach}`)
             .then(res => console.log(res))
             .catch(err => console.log(err))
@@ -172,22 +167,24 @@ const Team = () => {
 
     useEffect(() => {
         getTeamMembers()
+        // eslint-disable-next-line
     }, [])
 
     console.log(client)
 
     return (
         <>
-            <SubHeader header1={client.name} header2={team.name}/>
+            
+            <SubHeader renderArrow={true} header1={client.name} header2={team.name}/>
             {hasPermission()}
             {editToggle ? handleEdit() : null}
             {deleteToggle ? handleDelete() : null}
             <div>
-                Coach: {team.coach === null ? <p>Not Assigned</p> : getCoach()}
+                Captain: {team.coach === null ? <p>Not Assigned</p> : getCaptain()}
             </div>
             <label>Team Members:</label>
             { members.length > 0 ?
-                members.map(member => <MemberTag key={member._id} member={member} name={member.name} avatar={member.avatar} set={() => console.log("set")}/>) 
+                members.map(member => <MemberTag  key={member._id} _id={member._id} name={`${member.firstName}  ${member.lastName}`} avatar={member.avatar} />) 
             : 
                 null
             }

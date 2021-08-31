@@ -15,6 +15,10 @@ import CreateTeam from "./pages/CreateTeam"
 import AddTeamMember from "./pages/AddTeamMember"
 import Header from "./components/Header"
 import FooterNavbar from "./components/FooterNavbar"
+import Events from "./pages/Events"
+import Contests from "./pages/Contests"
+import CreateEvent from "./pages/CreateEvent"
+import Event from "./pages/Event"
 
 function App() {
   const {
@@ -25,9 +29,8 @@ function App() {
   } = useContext(UserContext)
   return (
     <div className="App">
-      <Header />
       <Switch>
-        <Route
+      <Route
           exact path='/'
           render={() => {
             if(token){
@@ -50,52 +53,82 @@ function App() {
             console.log(role)
             return <AdminAuth />
           }
-  }}
-        />
-        <ProtectedRoute
-          path='/profile'
-          component={Profile}
-          redirectTo='/'
-          token={token}
-        />
-        <ProtectedRoute
-          path='/adminclient'
-          component={AdminClient}
-          redirectTo='/'
-          token={token}
-        />
-        <ProtectedRoute
-          path='/client'
-          component={Client}
-          redirectTo='/'
-          token={token}
-        />
-        <ProtectedRoute
-          path='/createclient'
-          component={CreateClient}
-          redirectTo='/'
-          token={token}
-        />
-        <ProtectedRoute
-          path='/team'
-          component={Team}
-          redirectTo='/'
-          token={token}
-        />
-        <ProtectedRoute
-          path='/createteam'
-          component={CreateTeam}
-          redirectTo='/'
-          token={token}
-        />
-        <ProtectedRoute
-          path='/addteammember'
-          component={AddTeamMember}
-          redirectTo='/'
-          token={token}
+          }}
         />
       </Switch>
-      <FooterNavbar />
+
+      {token ? <Header /> : null}
+        <div style={{height: token ? '70vh' : 0, width: '100%', overflow: "scroll"}}>
+        <Switch>
+          <ProtectedRoute
+            path='/profile'
+            component={Profile}
+            redirectTo='/'
+            token={token}
+          />
+          <ProtectedRoute
+            path='/adminclient'
+            component={AdminClient}
+            redirectTo='/'
+            token={token}
+          />
+          <ProtectedRoute
+            path='/client'
+            component={Client}
+            redirectTo='/'
+            token={token}
+          />
+          <ProtectedRoute
+            path='/createclient'
+            component={CreateClient}
+            redirectTo='/'
+            token={token}
+          />
+          <ProtectedRoute
+            path='/team'
+            component={Team}
+            redirectTo='/'
+            token={token}
+          />
+          <ProtectedRoute
+            path='/createteam'
+            component={CreateTeam}
+            redirectTo='/'
+            token={token}
+          />
+          <ProtectedRoute
+            path='/addteammember'
+            component={AddTeamMember}
+            redirectTo='/'
+            token={token}
+          />
+          <ProtectedRoute
+            path='/events'
+            component={Events}
+            redirectTo='/'
+            token={token}
+          />
+          <ProtectedRoute
+            path='/contests'
+            component={Contests}
+            redirectTo='/'
+            token={token}
+          />
+          <ProtectedRoute
+            path='/createevent'
+            component={CreateEvent}
+            redirectTo='/'
+            token={token}
+          />
+          <ProtectedRoute
+            path='/event'
+            component={Event}
+            redirectTo='/'
+            token={token}
+          />
+        </Switch>
+      </div>
+      {token ? <FooterNavbar /> : null}
     </div>
   )
 }

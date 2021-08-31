@@ -5,9 +5,7 @@ import "../styles/clientForm.scss"
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import axios from 'axios'
 
-import Header from "../components/Header"
 import ClientForm from "../components/ClientForm"
-import FooterNavbar from "../components/FooterNavbar";
 
 const userAxios = axios.create()
 userAxios.interceptors.request.use(config => {
@@ -18,17 +16,20 @@ userAxios.interceptors.request.use(config => {
 
 const CreateClient = () => {
 
+    const [didSubmit, setDidSubmit] = useState(false)
+
     function createClient(e, inputs){
         e.preventDefault()
-        
+        setDidSubmit(true)
         userAxios.post("/api/client", inputs)
         .then(res => console.log(res))
         .catch(err => console.log(err))
 
-        return <Redirect to='/profile' />
     }
 
     return(
+        <>
+        {didSubmit ? <Redirect to="/profile" /> : null}
         <div>
             <div className="client-header">
                 <p><Link to='/profile'><ArrowBackIosIcon onClick={() => <Redirect to={"/admin"} />} /></Link> CREATE A NEW</p>
@@ -36,6 +37,7 @@ const CreateClient = () => {
             </div>
             <ClientForm submit={createClient} />
         </div>
+        </>
     )
 }
 
