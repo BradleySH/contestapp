@@ -56,7 +56,7 @@ function App() {
       </Switch>
 
       {token ? <Header /> : null}
-        <main style={{height: token ? '100vh' : 0, width: '100vw'}}>
+        <main style={{height: token ? '100vh' : 0, width: '100vw', overflow: 'auto', scrollBehavior: 'smooth'}}>
         <Switch>
           <ProtectedRoute
             path='/profile'
