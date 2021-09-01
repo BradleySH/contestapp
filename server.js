@@ -4,13 +4,15 @@ require("dotenv").config();
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 const secret = process.env.SECRET || "pug file lamp slick"
+const uri = process.env.MONGODB_URI || "mongodb://localhost:27017/piniondb"
+
 const jwt = require("express-jwt");
 
 app.use(express.json());
 app.use(morgan("dev"));
 
 mongoose.connect(
-  "mongodb+srv://dbUser:Vschool2021@cluster0.vnuzs.mongodb.net/piniondb",
+    uri,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
