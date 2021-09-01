@@ -1,0 +1,30 @@
+.event-set {
+  border: none;
+}
+
+fieldset {
+  border: none;
+}
+
+.event-card {
+  background-color: #1c3557;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+
+  p {
+    font-size: 14px;
+    color: white;
+  }
+  p:hover {
+    font-style: italic;
+    background-color: #bfc1bd;
+    color: #1c3557;
+    text-decoration: none;
+    list-style: none;
+  }
+
+  h3 {
+    color: white;
+  }
+}

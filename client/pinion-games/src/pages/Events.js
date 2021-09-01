@@ -4,6 +4,7 @@ import SubHeader from "../components/SubHeader"
 import {Link} from "react-router-dom"
 import axios from "axios"
 import EventCard from '../components/EventCard'
+import "../styles/eventSet.scss"
 
 const userAxios = axios.create()
 userAxios.interceptors.request.use(config => {
@@ -51,7 +52,7 @@ const Events = () => {
             <SubHeader renderArrow={true} header1={"SCHEDULE OF"} header2={"EVENTS"} imgUrl={"/images/events.png"} color={"#1c3557"} />
             <h2>Events</h2>
             { roleRestrictions.includes(role) ? <Link to={{pathname: "/createevent", state: {type: "Event", client: client}}}>Create New Event</Link> : null}
-            <fieldset>
+            <fieldset className="event-set">
                 {events.map(event => <EventCard key={event._id} eventObj={event} name={event.title} _id={event._id} date={event.eventDate} />)}
             </fieldset>
         </>

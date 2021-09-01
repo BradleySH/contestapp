@@ -3,3 +3,51 @@
   width: 100vw;
   background-color: white;
 }
+
+.sidebar.active {
+  width: 350px;
+  background: #1c3557;
+  position: absolute;
+  height: 95vh;
+  padding: 0 30px;
+  transition: ease-in-out 1s;
+
+  ul {
+    padding: 0;
+  }
+
+  ul li {
+    list-style-type: none;
+  }
+
+  ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    display: block;
+    padding: 10px 15px;
+    border-radius: 6px;
+    margin-top: 15px;
+    justify-content: center;
+    align-items: center;
+  }
+  ul li a:hover,
+  ul li a.active {
+    background: #a9dadc;
+    color: #1c3557;
+  }
+  button {
+    height: 40px;
+    width: 100px;
+    border: none;
+    background-color: #a9dadc;
+    color: #1c3557;
+    border-radius: 30px;
+    font-size: 18px;
+    margin-top: 30px;
+  }
+}
+
+.navbar-top svg {
+  font-size: 40px;
+}
