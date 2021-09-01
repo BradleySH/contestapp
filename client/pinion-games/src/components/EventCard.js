@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
+import "../styles/eventSet.scss";
 
 export default function EventCard(props){
 
@@ -7,7 +8,7 @@ export default function EventCard(props){
     const formattedDate = new Date(date).toLocaleDateString()
 
     return (
-        <div style={{border: '1px solid black', padding: '10px'}}>
+        <div className="event-card">
             <Link to={{
                 pathname:'/event',
                 state: {

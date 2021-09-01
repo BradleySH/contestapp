@@ -58,7 +58,7 @@ function App() {
       </Switch>
 
       {token ? <Header /> : null}
-        <div style={{height: token ? '70vh' : 0, width: '100%', overflow: "scroll"}}>
+        <div style={{height: token ? '100vh' : 0, width: '100vw', scrollBehavior: "smooth", overflow: "scroll"}}>
         <Switch>
           <ProtectedRoute
             path='/profile'
@@ -128,7 +128,7 @@ function App() {
           />
         </Switch>
       </div>
-      {token ? <FooterNavbar /> : null}
+      {token ? <FooterNavbar style={{position: "-webit-sticky", position: "sticky"}} /> : null}
     </div>
   )
 }
