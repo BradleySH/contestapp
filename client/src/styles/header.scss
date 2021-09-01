@@ -1,0 +1,67 @@
+.header {
+  position: relative;
+}
+
+.navbar-top {
+  position: absolute;
+  display: flex;
+  background-color: white;
+  height: 100%;
+
+  .menu-icon {
+    align-self: center;
+    color: #1c3557;
+  }
+}
+
+.sidebar.active {
+  background-color: white;
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  transition: ease-in-out 1s;
+
+  h2 {
+    text-align: center;
+    color: #1c3557;
+  }
+
+  ul {
+    padding: 0;
+  }
+
+  ul li {
+    list-style-type: none;
+  }
+
+  ul li a {
+    width: 50%;
+    color: #1c3557;
+    text-decoration: none;
+    font-size: 16px;
+    display: block;
+    padding: 10px 15px;
+    border-radius: 6px;
+    margin-top: 15px;
+    align-items: center;
+  }
+  ul li a:hover,
+  ul li a.active {
+    background: #a9dadc;
+    color: #1c3557;
+  }
+  button {
+    height: 40px;
+    width: 100px;
+    border: none;
+    background-color: #a9dadc;
+    color: #1c3557;
+    border-radius: 30px;
+    font-size: 18px;
+    margin-top: 30px;
+  }
+}
+
+.navbar-top svg {
+  font-size: 40px;
+}

@@ -5,9 +5,6 @@ const morgan = require("morgan");
 const mongoose = require("mongoose");
 
 const jwt = require("express-jwt");
-process.env.SECRET
-process.env.DB_URI
-
 
 app.use(express.json());
 app.use(morgan("dev"));
@@ -39,6 +36,6 @@ app.use((err, req, res, next) => {
 });
 
 
-app.listen(9000, () => {
-  console.log("Server is running on Port 9000")
+app.listen(process.env.PORT, () => {
+  console.log("Server Online")
 })
