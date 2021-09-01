@@ -46,11 +46,9 @@ function App() {
         <Route 
           path="/admin"
           render={() => {if(token && role === 'admin'){
-            console.log(role)
             return <Redirect to='/profile' />
           }
           else {
-            console.log(role)
             return <AdminAuth />
           }
           }}

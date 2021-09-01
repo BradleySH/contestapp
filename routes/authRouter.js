@@ -4,6 +4,7 @@ const User = require("../models/user");
 const Client = require("../models/client")
 const jwt = require("jsonwebtoken");
 
+const secret = process.env.SECRET || "pug file lamp slick"
 
 // Sign Up
 
